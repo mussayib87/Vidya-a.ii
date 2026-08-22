@@ -1,4 +1,4 @@
-
+import React from "react";
 import { ArrowRight, BookOpen, Globe2, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
