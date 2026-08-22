@@ -1,4 +1,4 @@
-
+import React from "react";
 import {
   ArrowRight,
   Check,
@@ -13,16 +13,19 @@ function Complete() {
   const { data } = useOnboarding();
 
   function handleStartLearning() {
-    // For now this navigates to the student dashboard.
-    // Backend profile persistence will be connected here.
-    navigate("/student/dashboard");
+    // Dashboard will be connected later.
+    // For now, go to the main home page.
+    navigate("/");
   }
 
   return (
     <main className="onboarding-page complete-page">
       <div className="onboarding-shell">
+
+        {/* Header */}
         <header className="onboarding-header">
           <div className="onboarding-logo">
+
             <div className="onboarding-logo-icon">
               <Sparkles size={20} />
             </div>
@@ -30,6 +33,7 @@ function Complete() {
             <span>
               Vidya<span> AI</span>
             </span>
+
           </div>
 
           <div className="onboarding-step">
@@ -39,6 +43,7 @@ function Complete() {
           </div>
         </header>
 
+        {/* Progress */}
         <div className="onboarding-progress">
           <div
             className="onboarding-progress-fill"
@@ -46,14 +51,22 @@ function Complete() {
           />
         </div>
 
+        {/* Content */}
         <section className="complete-content">
+
+          {/* Success icon */}
           <div className="complete-icon-wrapper">
             <div className="complete-icon">
-              <Check size={42} strokeWidth={3} />
+              <Check
+                size={42}
+                strokeWidth={3}
+              />
             </div>
           </div>
 
+          {/* Heading */}
           <div className="complete-heading">
+
             <div className="complete-badge">
               <Sparkles size={14} />
               Setup complete
@@ -69,23 +82,31 @@ function Complete() {
               according to your class, subjects and learning
               preferences.
             </p>
+
           </div>
 
+          {/* Profile */}
           <div className="complete-profile-card">
+
             <div className="complete-profile-header">
+
               <div>
                 <span>Your learning profile</span>
+
                 <strong>
                   {data.classLevel || "Student"}
                 </strong>
               </div>
 
               <CheckCircle2 size={22} />
+
             </div>
 
             <div className="complete-profile-grid">
+
               <div>
                 <span>Language</span>
+
                 <strong>
                   {data.language || "Not selected"}
                 </strong>
@@ -93,13 +114,17 @@ function Complete() {
 
               <div>
                 <span>Subjects</span>
+
                 <strong>
-                  {data.subjects?.length || 0} selected
+                  {Array.isArray(data.subjects)
+                    ? `${data.subjects.length} selected`
+                    : "0 selected"}
                 </strong>
               </div>
 
               <div>
                 <span>Goal</span>
+
                 <strong>
                   {data.learningGoal || "Not selected"}
                 </strong>
@@ -107,55 +132,76 @@ function Complete() {
 
               <div>
                 <span>Pace</span>
+
                 <strong>
                   {data.pace || "Not selected"}
                 </strong>
               </div>
+
             </div>
           </div>
 
+          {/* Features */}
           <div className="complete-features">
+
             <div className="complete-feature">
+
               <div className="complete-feature-icon">
                 <Check size={16} />
               </div>
 
               <div>
-                <strong>Personalized lessons</strong>
+                <strong>
+                  Personalized lessons
+                </strong>
+
                 <span>
                   Lessons adapted to your learning preferences
                 </span>
               </div>
+
             </div>
 
             <div className="complete-feature">
+
               <div className="complete-feature-icon">
                 <Check size={16} />
               </div>
 
               <div>
-                <strong>Learning in your language</strong>
+                <strong>
+                  Learning in your language
+                </strong>
+
                 <span>
                   Understand concepts in the language you prefer
                 </span>
               </div>
+
             </div>
 
             <div className="complete-feature">
+
               <div className="complete-feature-icon">
                 <Check size={16} />
               </div>
 
               <div>
-                <strong>AI-powered assistance</strong>
+                <strong>
+                  AI-powered assistance
+                </strong>
+
                 <span>
-                  Ask questions and get explanations whenever you
-                  need them
+                  Ask questions and get explanations whenever
+                  you need them
                 </span>
               </div>
+
             </div>
+
           </div>
 
+          {/* Start learning */}
           <button
             type="button"
             className="complete-start-button"
@@ -166,16 +212,21 @@ function Complete() {
           </button>
 
           <p className="complete-note">
-            You can change your learning preferences anytime from
-            your profile.
+            You can change your learning preferences anytime
+            from your profile.
           </p>
+
         </section>
 
+        {/* Footer */}
         <footer className="onboarding-footer">
           <span>Vidya AI</span>
           <span>•</span>
-          <span>Your learning. Your language. Your pace.</span>
+          <span>
+            Your learning. Your language. Your pace.
+          </span>
         </footer>
+
       </div>
     </main>
   );
