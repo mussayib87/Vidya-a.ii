@@ -55,19 +55,75 @@ function Home() {
   );
 }
 
+/*
+  Temporary dashboard.
+
+  We will replace this with the real StudentDashboard.jsx
+  after the complete onboarding flow has been tested.
+*/
+function TemporaryStudentDashboard() {
+  return (
+    <main
+      style={{
+        minHeight: "100vh",
+        display: "grid",
+        placeItems: "center",
+        padding: "24px",
+        background: "#f8fafc",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+          padding: "40px",
+          borderRadius: "20px",
+          background: "#ffffff",
+          textAlign: "center",
+          boxShadow: "0 10px 40px rgba(15, 23, 42, 0.08)",
+        }}
+      >
+        <h1>Welcome to Vidya AI 🎓</h1>
+
+        <p style={{ color: "#64748b" }}>
+          Your onboarding is complete.
+          <br />
+          The real student dashboard will be connected next.
+        </p>
+
+        <a
+          href="/"
+          className="btn btn-primary"
+          style={{
+            display: "inline-block",
+            marginTop: "20px",
+            textDecoration: "none",
+          }}
+        >
+          Back to Home
+        </a>
+      </div>
+    </main>
+  );
+}
+
 function App() {
   return (
     <OnboardingProvider>
       <Routes>
+        {/* Home */}
         <Route path="/" element={<Home />} />
 
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
+
         <Route path="/signup" element={<Signup />} />
+
         <Route
           path="/forgot-password"
           element={<ForgotPassword />}
         />
+
         <Route
           path="/reset-password"
           element={<ResetPassword />}
@@ -109,6 +165,13 @@ function App() {
           element={<Complete />}
         />
 
+        {/* Temporary student dashboard */}
+        <Route
+          path="/student/dashboard"
+          element={<TemporaryStudentDashboard />}
+        />
+
+        {/* Unknown route */}
         <Route
           path="*"
           element={<Navigate to="/" replace />}
