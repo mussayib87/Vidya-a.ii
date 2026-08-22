@@ -1,9 +1,19 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { OnboardingProvider } from "./context/OnboardingContext";
+
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+
+import Welcome from "./pages/onboarding/Welcome";
+import ClassBoard from "./pages/onboarding/ClassBoard";
+import Languages from "./pages/onboarding/Languages";
+import Subjects from "./pages/onboarding/Subjects";
+import Preferences from "./pages/onboarding/Preferences";
+import Review from "./pages/onboarding/Review";
+import Complete from "./pages/onboarding/Complete";
 
 function Home() {
   return (
@@ -47,28 +57,64 @@ function Home() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <OnboardingProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-      <Route path="/login" element={<Login />} />
+        {/* Authentication */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+        <Route
+          path="/reset-password"
+          element={<ResetPassword />}
+        />
 
-      <Route path="/signup" element={<Signup />} />
+        {/* Onboarding */}
+        <Route
+          path="/onboarding/welcome"
+          element={<Welcome />}
+        />
 
-      <Route
-        path="/forgot-password"
-        element={<ForgotPassword />}
-      />
+        <Route
+          path="/onboarding/class"
+          element={<ClassBoard />}
+        />
 
-      <Route
-        path="/reset-password"
-        element={<ResetPassword />}
-      />
+        <Route
+          path="/onboarding/language"
+          element={<Languages />}
+        />
 
-      <Route
-        path="*"
-        element={<Navigate to="/" replace />}
-      />
-    </Routes>
+        <Route
+          path="/onboarding/subjects"
+          element={<Subjects />}
+        />
+
+        <Route
+          path="/onboarding/preferences"
+          element={<Preferences />}
+        />
+
+        <Route
+          path="/onboarding/review"
+          element={<Review />}
+        />
+
+        <Route
+          path="/onboarding/complete"
+          element={<Complete />}
+        />
+
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
+      </Routes>
+    </OnboardingProvider>
   );
 }
 
