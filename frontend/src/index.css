@@ -1555,3 +1555,139 @@ a {
     gap: 3px;
   }
   }
+/* =========================================
+   ONBOARDING FORM
+========================================= */
+
+.onboarding-form-section {
+  width: min(760px, 100%);
+  margin: auto;
+  padding: 55px 0;
+}
+
+.onboarding-heading {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.onboarding-heading .welcome-icon {
+  margin-bottom: 18px;
+}
+
+.onboarding-heading h1 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(32px, 5vw, 46px);
+  letter-spacing: -2px;
+}
+
+.onboarding-heading p {
+  max-width: 570px;
+  margin: 15px auto 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.selection-section {
+  margin-bottom: 32px;
+}
+
+.selection-section > label {
+  display: block;
+  margin-bottom: 13px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.selection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.selection-card {
+  min-height: 54px;
+  padding: 0 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+  color: #475569;
+  background: white;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.selection-card:hover {
+  border-color: #93c5fd;
+  transform: translateY(-1px);
+}
+
+.selection-card.selected {
+  border-color: #2563eb;
+  color: #1d4ed8;
+  background: #eff6ff;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+}
+
+.onboarding-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 42px;
+}
+
+.onboarding-back-button {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 13px;
+  color: #64748b;
+  background: white;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.onboarding-back-button:hover {
+  background: #f8fafc;
+}
+
+.onboarding-primary-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .onboarding-form-section {
+    padding: 40px 0;
+  }
+
+  .selection-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .onboarding-navigation {
+    position: sticky;
+    bottom: 0;
+    padding: 12px 0;
+    background: rgba(248, 250, 252, 0.94);
+    backdrop-filter: blur(10px);
+  }
+
+  .onboarding-primary-button {
+    min-width: 150px;
+  }
+  }
