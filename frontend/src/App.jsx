@@ -1,48 +1,17 @@
-import { Route, Routes } from "react-router-dom";
-
-function Home() {
+export default function App() {
   return (
     <div
       style={{
         minHeight: "100vh",
+        background: "white",
+        color: "black",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#ffffff",
-        color: "#111827",
-        fontSize: "32px",
+        fontSize: "40px",
       }}
     >
-      VIDYA AI HOME
+      APP JSX IS WORKING
     </div>
   );
 }
-
-function Login() {
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#ffffff",
-        color: "#111827",
-        fontSize: "32px",
-      }}
-    >
-      VIDYA AI LOGIN
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
-  );
-}
-
-export default App;
