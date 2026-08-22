@@ -6,7 +6,15 @@ function App() {
       <Route
         path="/"
         element={
-          <div style={{ padding: "50px", fontSize: "32px" }}>
+          <div
+            style={{
+              minHeight: "100vh",
+              padding: "50px",
+              fontSize: "32px",
+              color: "#111",
+              background: "#fff",
+            }}
+          >
             Vidya AI Home
           </div>
         }
@@ -15,7 +23,15 @@ function App() {
       <Route
         path="/login"
         element={
-          <div style={{ padding: "50px", fontSize: "32px" }}>
+          <div
+            style={{
+              minHeight: "100vh",
+              padding: "50px",
+              fontSize: "32px",
+              color: "#111",
+              background: "#fff",
+            }}
+          >
             VIDYA AI LOGIN TEST
           </div>
         }
