@@ -6,7 +6,7 @@ function Welcome() {
   const navigate = useNavigate();
 
   function handleContinue() {
-    navigate("/onboarding/class");
+  navigate("/onboarding/class-board");
   }
 
   return (
