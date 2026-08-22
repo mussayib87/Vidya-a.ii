@@ -18,8 +18,10 @@ import Complete from "./pages/onboarding/Complete";
 
 function App() {
   return (
+    <OnBoardingProvider>
     <BrowserRouter>
       <Routes>
+        </OnBoardingProvider>
 
         {/* Temporary home */}
         <Route
