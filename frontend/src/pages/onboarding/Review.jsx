@@ -1,4 +1,4 @@
-
+import React from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -21,9 +21,30 @@ function Review() {
     navigate("/onboarding/complete");
   }
 
+  function handleEditClass() {
+    navigate("/onboarding/class-board");
+  }
+
+  function handleEditLanguage() {
+    navigate("/onboarding/languages");
+  }
+
+  function handleEditSubjects() {
+    navigate("/onboarding/subjects");
+  }
+
+  function handleEditPreferences() {
+    navigate("/onboarding/preferences");
+  }
+
+  function handleBack() {
+    navigate("/onboarding/preferences");
+  }
+
   return (
     <main className="onboarding-page">
       <div className="onboarding-shell">
+
         {/* Header */}
         <header className="onboarding-header">
           <div className="onboarding-logo">
@@ -51,8 +72,9 @@ function Review() {
           />
         </div>
 
-        {/* Content */}
+        {/* Main */}
         <section className="onboarding-form-section review-section">
+
           <div className="onboarding-heading">
             <div className="welcome-icon">
               <CheckCircle2 size={28} />
@@ -61,14 +83,15 @@ function Review() {
             <h1>Let's review your profile</h1>
 
             <p>
-              Everything looks good? You can go back and change anything
-              before finishing your setup.
+              Everything looks good? You can go back and change
+              anything before finishing your setup.
             </p>
           </div>
 
-          {/* Academic information */}
+          {/* Academic profile */}
           <div className="review-card">
             <div className="review-card-header">
+
               <div className="review-card-title">
                 <GraduationCap size={18} />
 
@@ -80,15 +103,18 @@ function Review() {
 
               <button
                 type="button"
-                onClick={() => navigate("/onboarding/class")}
+                onClick={handleEditClass}
               >
                 Edit
               </button>
+
             </div>
 
             <div className="review-details">
+
               <div>
                 <span>Class</span>
+
                 <strong>
                   {data.classLevel || "Not selected"}
                 </strong>
@@ -96,16 +122,20 @@ function Review() {
 
               <div>
                 <span>Board</span>
+
                 <strong>
                   {data.board || "Not selected"}
                 </strong>
               </div>
+
             </div>
           </div>
 
           {/* Language */}
           <div className="review-card">
+
             <div className="review-card-header">
+
               <div className="review-card-title">
                 <Globe2 size={18} />
 
@@ -117,13 +147,15 @@ function Review() {
 
               <button
                 type="button"
-                onClick={() => navigate("/onboarding/language")}
+                onClick={handleEditLanguage}
               >
                 Edit
               </button>
+
             </div>
 
             <div className="review-language">
+
               <span className="review-language-icon">
                 {data.language
                   ? data.language.charAt(0)
@@ -133,12 +165,15 @@ function Review() {
               <strong>
                 {data.language || "Not selected"}
               </strong>
+
             </div>
           </div>
 
           {/* Subjects */}
           <div className="review-card">
+
             <div className="review-card-header">
+
               <div className="review-card-title">
                 <BookOpen size={18} />
 
@@ -150,26 +185,34 @@ function Review() {
 
               <button
                 type="button"
-                onClick={() => navigate("/onboarding/subjects")}
+                onClick={handleEditSubjects}
               >
                 Edit
               </button>
+
             </div>
 
             <div className="review-tags">
-              {data.subjects.length > 0 ? (
+
+              {Array.isArray(data.subjects) &&
+              data.subjects.length > 0 ? (
                 data.subjects.map((subject) => (
-                  <span key={subject}>{subject}</span>
+                  <span key={subject}>
+                    {subject}
+                  </span>
                 ))
               ) : (
                 <span>None selected</span>
               )}
+
             </div>
           </div>
 
           {/* Preferences */}
           <div className="review-card">
+
             <div className="review-card-header">
+
               <div className="review-card-title">
                 <Brain size={18} />
 
@@ -181,22 +224,24 @@ function Review() {
 
               <button
                 type="button"
-                onClick={() =>
-                  navigate("/onboarding/preferences")
-                }
+                onClick={handleEditPreferences}
               >
                 Edit
               </button>
+
             </div>
 
             <div className="review-preferences">
+
               <div className="review-preference">
                 <Target size={16} />
 
                 <div>
                   <span>Goal</span>
+
                   <strong>
-                    {data.learningGoal || "Not selected"}
+                    {data.learningGoal ||
+                      "Not selected"}
                   </strong>
                 </div>
               </div>
@@ -206,8 +251,10 @@ function Review() {
 
                 <div>
                   <span>Learning style</span>
+
                   <strong>
-                    {data.learningStyle || "Not selected"}
+                    {data.learningStyle ||
+                      "Not selected"}
                   </strong>
                 </div>
               </div>
@@ -217,36 +264,43 @@ function Review() {
 
                 <div>
                   <span>Learning pace</span>
+
                   <strong>
-                    {data.pace || "Not selected"}
+                    {data.pace ||
+                      "Not selected"}
                   </strong>
                 </div>
               </div>
+
             </div>
           </div>
 
           {/* Summary */}
           <div className="review-summary">
+
             <CheckCircle2 size={18} />
 
             <div>
-              <strong>Your learning profile is ready.</strong>
+              <strong>
+                Your learning profile is ready.
+              </strong>
 
               <p>
-                Vidya AI will use these preferences to personalize
-                your lessons, explanations and practice.
+                Vidya AI will use these preferences to
+                personalize your lessons, explanations
+                and practice.
               </p>
             </div>
+
           </div>
 
           {/* Navigation */}
           <div className="onboarding-navigation">
+
             <button
               type="button"
               className="onboarding-back-button"
-              onClick={() =>
-                navigate("/onboarding/preferences")
-              }
+              onClick={handleBack}
             >
               <ArrowLeft size={17} />
               Back
@@ -260,14 +314,20 @@ function Review() {
               Complete setup
               <ArrowRight size={18} />
             </button>
+
           </div>
+
         </section>
 
+        {/* Footer */}
         <footer className="onboarding-footer">
           <span>Vidya AI</span>
           <span>•</span>
-          <span>Your learning. Your language. Your pace.</span>
+          <span>
+            Your learning. Your language. Your pace.
+          </span>
         </footer>
+
       </div>
     </main>
   );
