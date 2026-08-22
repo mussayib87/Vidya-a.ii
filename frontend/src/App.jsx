@@ -1,6 +1,7 @@
-import React from "react";
+          import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { OnboardingProvider } from "./context/OnboardingContext";
+
 // Authentication
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
@@ -18,92 +19,92 @@ import Complete from "./pages/onboarding/Complete";
 
 function App() {
   return (
-    <OnBoardingProvider>
-    <BrowserRouter>
-      <Routes>
-        </OnBoardingProvider>
+    <OnboardingProvider>
+      <BrowserRouter>
+        <Routes>
 
-        {/* Temporary home */}
-        <Route
-          path="/"
-          element={
-            <div
-              style={{
-                minHeight: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "Arial, sans-serif",
-              }}
-            >
-              <div style={{ textAlign: "center" }}>
-                <h1>VIDYA AI</h1>
-                <p>AI-powered multilingual learning</p>
+          {/* Home */}
+          <Route
+            path="/"
+            element={
+              <div
+                style={{
+                  minHeight: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "Arial, sans-serif",
+                }}
+              >
+                <div style={{ textAlign: "center" }}>
+                  <h1>VIDYA AI</h1>
+                  <p>AI-powered multilingual learning</p>
 
-                <a href="/login">
-                  Get Started
-                </a>
+                  <a href="/login">
+                    Get Started
+                  </a>
+                </div>
               </div>
-            </div>
-          }
-        />
+            }
+          />
 
-        {/* Authentication */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/forgot-password"
-          element={<ForgotPassword />}
-        />
-        <Route
-          path="/reset-password"
-          element={<ResetPassword />}
-        />
+          {/* Authentication */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/forgot-password"
+            element={<ForgotPassword />}
+          />
+          <Route
+            path="/reset-password"
+            element={<ResetPassword />}
+          />
 
-        {/* Onboarding */}
-        <Route
-          path="/onboarding/welcome"
-          element={<Welcome />}
-        />
+          {/* Onboarding */}
+          <Route
+            path="/onboarding/welcome"
+            element={<Welcome />}
+          />
 
-        <Route
-          path="/onboarding/class-board"
-          element={<ClassBoard />}
-        />
+          <Route
+            path="/onboarding/class-board"
+            element={<ClassBoard />}
+          />
 
-        <Route
-          path="/onboarding/languages"
-          element={<Languages />}
-        />
+          <Route
+            path="/onboarding/languages"
+            element={<Languages />}
+          />
 
-        <Route
-          path="/onboarding/subjects"
-          element={<Subjects />}
-        />
+          <Route
+            path="/onboarding/subjects"
+            element={<Subjects />}
+          />
 
-        <Route
-          path="/onboarding/preferences"
-          element={<Preferences />}
-        />
+          <Route
+            path="/onboarding/preferences"
+            element={<Preferences />}
+          />
 
-        <Route
-          path="/onboarding/review"
-          element={<Review />}
-        />
+          <Route
+            path="/onboarding/review"
+            element={<Review />}
+          />
 
-        <Route
-          path="/onboarding/complete"
-          element={<Complete />}
-        />
+          <Route
+            path="/onboarding/complete"
+            element={<Complete />}
+          />
 
-        {/* Unknown routes */}
-        <Route
-          path="*"
-          element={<Navigate to="/" replace />}
-        />
+          {/* Unknown routes */}
+          <Route
+            path="*"
+            element={<Navigate to="/" replace />}
+          />
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </OnboardingProvider>
   );
 }
 
