@@ -1,4 +1,5 @@
 
+                     import React from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -45,7 +46,19 @@ function Subjects() {
   const navigate = useNavigate();
   const { data, toggleSubject } = useOnboarding();
 
-  const canContinue = data.subjects.length > 0;
+  const selectedSubjects = Array.isArray(data.subjects)
+    ? data.subjects
+    : [];
+
+  const canContinue = selectedSubjects.length > 0;
+
+  function handleSubjectToggle(subjectName) {
+    toggleSubject(subjectName);
+  }
+
+  function handleBack() {
+    navigate("/onboarding/languages");
+  }
 
   function handleContinue() {
     if (!canContinue) return;
@@ -56,6 +69,8 @@ function Subjects() {
   return (
     <main className="onboarding-page">
       <div className="onboarding-shell">
+
+        {/* Header */}
         <header className="onboarding-header">
           <div className="onboarding-logo">
             <div className="onboarding-logo-icon">
@@ -74,6 +89,7 @@ function Subjects() {
           </div>
         </header>
 
+        {/* Progress */}
         <div className="onboarding-progress">
           <div
             className="onboarding-progress-fill"
@@ -81,7 +97,9 @@ function Subjects() {
           />
         </div>
 
+        {/* Main */}
         <section className="onboarding-form-section">
+
           <div className="onboarding-heading">
             <div className="welcome-icon">
               <BookOpen size={28} />
@@ -90,14 +108,18 @@ function Subjects() {
             <h1>What do you want to learn?</h1>
 
             <p>
-              Select all the subjects you want to study with Vidya AI.
-              You can change these later from your profile.
+              Select all the subjects you want to study with
+              Vidya AI. You can change these later from your
+              profile.
             </p>
           </div>
 
+          {/* Subjects */}
           <div className="subject-grid">
             {subjects.map((subject) => {
-              const selected = data.subjects.includes(subject.name);
+              const selected = selectedSubjects.includes(
+                subject.name
+              );
 
               return (
                 <button
@@ -106,7 +128,10 @@ function Subjects() {
                   className={`subject-card ${
                     selected ? "selected" : ""
                   }`}
-                  onClick={() => toggleSubject(subject.name)}
+                  onClick={() =>
+                    handleSubjectToggle(subject.name)
+                  }
+                  aria-pressed={selected}
                 >
                   <div className="subject-icon">
                     {subject.short}
@@ -129,21 +154,24 @@ function Subjects() {
             })}
           </div>
 
+          {/* Selected count */}
           <div className="selected-count">
-            {data.subjects.length === 0
+            {selectedSubjects.length === 0
               ? "Select at least one subject"
-              : `${data.subjects.length} ${
-                  data.subjects.length === 1
+              : `${selectedSubjects.length} ${
+                  selectedSubjects.length === 1
                     ? "subject"
                     : "subjects"
                 } selected`}
           </div>
 
+          {/* Navigation */}
           <div className="onboarding-navigation">
+
             <button
               type="button"
               className="onboarding-back-button"
-              onClick={() => navigate("/onboarding/language")}
+              onClick={handleBack}
             >
               <ArrowLeft size={17} />
               Back
@@ -158,17 +186,23 @@ function Subjects() {
               Continue
               <ArrowRight size={18} />
             </button>
+
           </div>
+
         </section>
 
+        {/* Footer */}
         <footer className="onboarding-footer">
           <span>Vidya AI</span>
           <span>•</span>
-          <span>Your learning. Your language. Your pace.</span>
+          <span>
+            Your learning. Your language. Your pace.
+          </span>
         </footer>
+
       </div>
     </main>
   );
 }
 
-export default Subjects;
+export default Subjects;     
