@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useMemo, useState } from "react";
 
 const OnboardingContext = createContext(null);
@@ -67,4 +66,4 @@ export function useOnboarding() {
   }
 
   return context;
-      }
+        }
