@@ -1,4 +1,4 @@
-  import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
@@ -24,4 +24,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
