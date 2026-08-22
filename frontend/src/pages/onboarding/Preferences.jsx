@@ -1,4 +1,5 @@
 
+             import React from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -47,9 +48,31 @@ function Preferences() {
   const { data, updateData } = useOnboarding();
 
   const canContinue =
-    data.learningGoal &&
-    data.learningStyle &&
-    data.pace;
+    Boolean(data.learningGoal) &&
+    Boolean(data.learningStyle) &&
+    Boolean(data.pace);
+
+  function handleGoalSelect(goal) {
+    updateData({
+      learningGoal: goal,
+    });
+  }
+
+  function handleLearningStyleSelect(style) {
+    updateData({
+      learningStyle: style,
+    });
+  }
+
+  function handlePaceSelect(pace) {
+    updateData({
+      pace,
+    });
+  }
+
+  function handleBack() {
+    navigate("/onboarding/subjects");
+  }
 
   function handleContinue() {
     if (!canContinue) return;
@@ -60,6 +83,8 @@ function Preferences() {
   return (
     <main className="onboarding-page">
       <div className="onboarding-shell">
+
+        {/* Header */}
         <header className="onboarding-header">
           <div className="onboarding-logo">
             <div className="onboarding-logo-icon">
@@ -78,6 +103,7 @@ function Preferences() {
           </div>
         </header>
 
+        {/* Progress */}
         <div className="onboarding-progress">
           <div
             className="onboarding-progress-fill"
@@ -85,7 +111,9 @@ function Preferences() {
           />
         </div>
 
+        {/* Main */}
         <section className="onboarding-form-section">
+
           <div className="onboarding-heading">
             <div className="welcome-icon">
               <Brain size={28} />
@@ -103,33 +131,40 @@ function Preferences() {
           <div className="preference-section">
             <div className="preference-title">
               <Target size={18} />
+
               <div>
                 <h3>What's your main goal?</h3>
-                <p>Choose the option that fits you best.</p>
+                <p>
+                  Choose the option that fits you best.
+                </p>
               </div>
             </div>
 
             <div className="preference-options">
-              {goals.map((goal) => (
-                <button
-                  key={goal}
-                  type="button"
-                  className={`preference-option ${
-                    data.learningGoal === goal ? "selected" : ""
-                  }`}
-                  onClick={() =>
-                    updateData({
-                      learningGoal: goal,
-                    })
-                  }
-                >
-                  {goal}
+              {goals.map((goal) => {
+                const selected =
+                  data.learningGoal === goal;
 
-                  {data.learningGoal === goal && (
-                    <span>✓</span>
-                  )}
-                </button>
-              ))}
+                return (
+                  <button
+                    key={goal}
+                    type="button"
+                    className={`preference-option ${
+                      selected ? "selected" : ""
+                    }`}
+                    onClick={() =>
+                      handleGoalSelect(goal)
+                    }
+                    aria-pressed={selected}
+                  >
+                    <span>{goal}</span>
+
+                    {selected && (
+                      <span>✓</span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -137,35 +172,40 @@ function Preferences() {
           <div className="preference-section">
             <div className="preference-title">
               <Brain size={18} />
+
               <div>
                 <h3>How do you learn best?</h3>
-                <p>Pick the style you'd like Vidya AI to use.</p>
+                <p>
+                  Pick the style you'd like Vidya AI to use.
+                </p>
               </div>
             </div>
 
             <div className="preference-options">
-              {learningStyles.map((style) => (
-                <button
-                  key={style}
-                  type="button"
-                  className={`preference-option ${
-                    data.learningStyle === style
-                      ? "selected"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    updateData({
-                      learningStyle: style,
-                    })
-                  }
-                >
-                  {style}
+              {learningStyles.map((style) => {
+                const selected =
+                  data.learningStyle === style;
 
-                  {data.learningStyle === style && (
-                    <span>✓</span>
-                  )}
-                </button>
-              ))}
+                return (
+                  <button
+                    key={style}
+                    type="button"
+                    className={`preference-option ${
+                      selected ? "selected" : ""
+                    }`}
+                    onClick={() =>
+                      handleLearningStyleSelect(style)
+                    }
+                    aria-pressed={selected}
+                  >
+                    <span>{style}</span>
+
+                    {selected && (
+                      <span>✓</span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -173,44 +213,54 @@ function Preferences() {
           <div className="preference-section">
             <div className="preference-title">
               <Zap size={18} />
+
               <div>
                 <h3>What's your preferred pace?</h3>
-                <p>You can change this anytime later.</p>
+                <p>
+                  You can change this anytime later.
+                </p>
               </div>
             </div>
 
             <div className="pace-grid">
-              {paces.map((pace) => (
-                <button
-                  key={pace.value}
-                  type="button"
-                  className={`pace-card ${
-                    data.pace === pace.value ? "selected" : ""
-                  }`}
-                  onClick={() =>
-                    updateData({
-                      pace: pace.value,
-                    })
-                  }
-                >
-                  <strong>{pace.title}</strong>
+              {paces.map((pace) => {
+                const selected =
+                  data.pace === pace.value;
 
-                  <span>{pace.description}</span>
+                return (
+                  <button
+                    key={pace.value}
+                    type="button"
+                    className={`pace-card ${
+                      selected ? "selected" : ""
+                    }`}
+                    onClick={() =>
+                      handlePaceSelect(pace.value)
+                    }
+                    aria-pressed={selected}
+                  >
+                    <strong>{pace.title}</strong>
 
-                  {data.pace === pace.value && (
-                    <div className="pace-check">✓</div>
-                  )}
-                </button>
-              ))}
+                    <span>{pace.description}</span>
+
+                    {selected && (
+                      <div className="pace-check">
+                        ✓
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Navigation */}
           <div className="onboarding-navigation">
+
             <button
               type="button"
               className="onboarding-back-button"
-              onClick={() => navigate("/onboarding/subjects")}
+              onClick={handleBack}
             >
               <ArrowLeft size={17} />
               Back
@@ -225,17 +275,23 @@ function Preferences() {
               Review
               <ArrowRight size={18} />
             </button>
+
           </div>
+
         </section>
 
+        {/* Footer */}
         <footer className="onboarding-footer">
           <span>Vidya AI</span>
           <span>•</span>
-          <span>Your learning. Your language. Your pace.</span>
+          <span>
+            Your learning. Your language. Your pace.
+          </span>
         </footer>
+
       </div>
     </main>
   );
 }
 
-export default Preferences;
+export default Preferences;       
