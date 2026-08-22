@@ -1,14 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 
-import App from "./App";
-import "./index.css";
+function TestApp() {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#f8fafc",
+        color: "#111827",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "Arial, sans-serif",
+        fontSize: "32px",
+        fontWeight: "600",
+      }}
+    >
+      VIDYA AI IS WORKING
+    </div>
+  );
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <TestApp />
   </React.StrictMode>
 );
