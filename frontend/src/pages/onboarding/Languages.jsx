@@ -1,4 +1,5 @@
 
+          import React from "react";
 import { ArrowLeft, ArrowRight, Globe2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useOnboarding } from "../../context/OnboardingContext";
@@ -22,6 +23,16 @@ function Languages() {
 
   const canContinue = Boolean(data.language);
 
+  function handleLanguageSelect(language) {
+    updateData({
+      language,
+    });
+  }
+
+  function handleBack() {
+    navigate("/onboarding/class-board");
+  }
+
   function handleContinue() {
     if (!canContinue) return;
 
@@ -31,6 +42,8 @@ function Languages() {
   return (
     <main className="onboarding-page">
       <div className="onboarding-shell">
+
+        {/* Header */}
         <header className="onboarding-header">
           <div className="onboarding-logo">
             <div className="onboarding-logo-icon">
@@ -49,6 +62,7 @@ function Languages() {
           </div>
         </header>
 
+        {/* Progress */}
         <div className="onboarding-progress">
           <div
             className="onboarding-progress-fill"
@@ -56,7 +70,9 @@ function Languages() {
           />
         </div>
 
+        {/* Main */}
         <section className="onboarding-form-section">
+
           <div className="onboarding-heading">
             <div className="welcome-icon">
               <Globe2 size={28} />
@@ -65,45 +81,54 @@ function Languages() {
             <h1>Choose your learning language</h1>
 
             <p>
-              Vidya AI can explain concepts and learning material in a
-              language that feels natural to you.
+              Vidya AI can explain concepts and learning material
+              in a language that feels natural to you.
             </p>
           </div>
 
+          {/* Language selection */}
           <div className="language-grid">
-            {languages.map((language) => (
-              <button
-                key={language.name}
-                type="button"
-                className={`language-card ${
-                  data.language === language.name ? "selected" : ""
-                }`}
-                onClick={() =>
-                  updateData({
-                    language: language.name,
-                  })
-                }
-              >
-                <span className="language-native">
-                  {language.native}
-                </span>
+            {languages.map((language) => {
+              const selected =
+                data.language === language.name;
 
-                <span className="language-name">
-                  {language.name}
-                </span>
+              return (
+                <button
+                  key={language.name}
+                  type="button"
+                  className={`language-card ${
+                    selected ? "selected" : ""
+                  }`}
+                  onClick={() =>
+                    handleLanguageSelect(language.name)
+                  }
+                  aria-pressed={selected}
+                >
+                  <span className="language-native">
+                    {language.native}
+                  </span>
 
-                {data.language === language.name && (
-                  <span className="language-check">✓</span>
-                )}
-              </button>
-            ))}
+                  <span className="language-name">
+                    {language.name}
+                  </span>
+
+                  {selected && (
+                    <span className="language-check">
+                      ✓
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
+          {/* Navigation */}
           <div className="onboarding-navigation">
+
             <button
               type="button"
               className="onboarding-back-button"
-              onClick={() => navigate("/onboarding/class")}
+              onClick={handleBack}
             >
               <ArrowLeft size={17} />
               Back
@@ -118,14 +143,20 @@ function Languages() {
               Continue
               <ArrowRight size={18} />
             </button>
+
           </div>
+
         </section>
 
+        {/* Footer */}
         <footer className="onboarding-footer">
           <span>Vidya AI</span>
           <span>•</span>
-          <span>Your learning. Your language. Your pace.</span>
+          <span>
+            Your learning. Your language. Your pace.
+          </span>
         </footer>
+
       </div>
     </main>
   );
