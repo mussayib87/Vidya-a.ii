@@ -1,6 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-
-import { OnboardingProvider } from "./context/OnboardingContext";
+          import { Navigate, Route, Routes } from "react-router-dom";
 
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
@@ -29,9 +27,7 @@ function Home() {
       <div>
         <h1>Vidya AI</h1>
 
-        <p>
-          AI-powered multilingual learning platform.
-        </p>
+        <p>AI-powered multilingual learning platform.</p>
 
         <div
           style={{
@@ -55,12 +51,6 @@ function Home() {
   );
 }
 
-/*
-  Temporary dashboard.
-
-  We will replace this with the real StudentDashboard.jsx
-  after the complete onboarding flow has been tested.
-*/
 function TemporaryStudentDashboard() {
   return (
     <main
@@ -109,75 +99,73 @@ function TemporaryStudentDashboard() {
 
 function App() {
   return (
-    <OnboardingProvider>
-      <Routes>
-        {/* Home */}
-        <Route path="/" element={<Home />} />
+    <Routes>
+      {/* Home */}
+      <Route path="/" element={<Home />} />
 
-        {/* Authentication */}
-        <Route path="/login" element={<Login />} />
+      {/* Authentication */}
+      <Route path="/login" element={<Login />} />
 
-        <Route path="/signup" element={<Signup />} />
+      <Route path="/signup" element={<Signup />} />
 
-        <Route
-          path="/forgot-password"
-          element={<ForgotPassword />}
-        />
+      <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
+      />
 
-        <Route
-          path="/reset-password"
-          element={<ResetPassword />}
-        />
+      <Route
+        path="/reset-password"
+        element={<ResetPassword />}
+      />
 
-        {/* Onboarding */}
-        <Route
-          path="/onboarding/welcome"
-          element={<Welcome />}
-        />
+      {/* Onboarding */}
+      <Route
+        path="/onboarding/welcome"
+        element={<Welcome />}
+      />
 
-        <Route
-          path="/onboarding/class"
-          element={<ClassBoard />}
-        />
+      <Route
+        path="/onboarding/class"
+        element={<ClassBoard />}
+      />
 
-        <Route
-          path="/onboarding/language"
-          element={<Languages />}
-        />
+      <Route
+        path="/onboarding/language"
+        element={<Languages />}
+      />
 
-        <Route
-          path="/onboarding/subjects"
-          element={<Subjects />}
-        />
+      <Route
+        path="/onboarding/subjects"
+        element={<Subjects />}
+      />
 
-        <Route
-          path="/onboarding/preferences"
-          element={<Preferences />}
-        />
+      <Route
+        path="/onboarding/preferences"
+        element={<Preferences />}
+      />
 
-        <Route
-          path="/onboarding/review"
-          element={<Review />}
-        />
+      <Route
+        path="/onboarding/review"
+        element={<Review />}
+      />
 
-        <Route
-          path="/onboarding/complete"
-          element={<Complete />}
-        />
+      <Route
+        path="/onboarding/complete"
+        element={<Complete />}
+      />
 
-        {/* Temporary student dashboard */}
-        <Route
-          path="/student/dashboard"
-          element={<TemporaryStudentDashboard />}
-        />
+      {/* Temporary dashboard */}
+      <Route
+        path="/student/dashboard"
+        element={<TemporaryStudentDashboard />}
+      />
 
-        {/* Unknown route */}
-        <Route
-          path="*"
-          element={<Navigate to="/" replace />}
-        />
-      </Routes>
-    </OnboardingProvider>
+      {/* Unknown routes */}
+      <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
+    </Routes>
   );
 }
 
