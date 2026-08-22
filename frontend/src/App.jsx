@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import { OnboardingProvider } from "./context/OnboardingContext";
 // Authentication
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
