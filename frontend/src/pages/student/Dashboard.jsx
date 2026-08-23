@@ -7,6 +7,11 @@ import {
   Trophy,
   ArrowRight,
   Sparkles,
+  ChevronRight,
+  Target,
+  Flame,
+  Clock3,
+  User,
 } from "lucide-react";
 import { useOnboarding } from "../../context/OnboardingContext";
 
@@ -15,213 +20,439 @@ export default function Dashboard() {
   const { data } = useOnboarding();
 
   const subjects = data?.subjects || [];
+  const language = data?.language || "English";
+  const className = data?.class || "Student";
+
+  const displayName =
+    data?.name ||
+    data?.fullName ||
+    "Student";
+
+  const formatSubject = (subject) => {
+    if (!subject) return "";
+
+    return subject
+      .replace(/[-_]/g, " ")
+      .replace(/\b\w/g, (letter) =>
+        letter.toUpperCase()
+      );
+  };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f8fafc",
-        fontFamily: "Arial, sans-serif",
-        color: "#0f172a",
-      }}
-    >
-      {/* Header */}
-      <header
-        style={{
-          background: "#ffffff",
-          borderBottom: "1px solid #e2e8f0",
-          padding: "16px 24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          position: "sticky",
-          top: 0,
-          zIndex: 10,
-        }}
-      >
-        <div>
-          <h2 style={{ margin: 0, color: "#2563eb" }}>VIDYA AI</h2>
-          <span style={{ fontSize: 13, color: "#64748b" }}>
-            Learn without language barriers
-          </span>
+    <div className="vidya-dashboard">
+      {/* ================= HEADER ================= */}
+
+      <header className="dashboard-header">
+        <div className="dashboard-brand">
+          <div className="dashboard-logo">
+            V
+          </div>
+
+          <div>
+            <h2>VIDYA AI</h2>
+            <span>
+              Learn without language barriers
+            </span>
+          </div>
         </div>
 
         <button
-          onClick={() => navigate("/onboarding/review")}
-          style={{
-            border: "1px solid #cbd5e1",
-            background: "#fff",
-            borderRadius: 10,
-            padding: "9px 14px",
-            cursor: "pointer",
-          }}
+          type="button"
+          className="dashboard-profile-button"
+          onClick={() =>
+            navigate("/onboarding/review")
+          }
         >
-          Profile
+          <User size={18} />
+          <span>Profile</span>
         </button>
       </header>
 
-      {/* Main */}
-      <main
-        style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          padding: "40px 20px",
-        }}
-      >
-        {/* Welcome */}
-        <section
-          style={{
-            background: "linear-gradient(135deg, #2563eb, #4f46e5)",
-            color: "#fff",
-            borderRadius: 24,
-            padding: "35px",
-            marginBottom: 30,
-          }}
-        >
-          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <Sparkles size={28} />
-            <span>VIDYA AI</span>
+      {/* ================= MAIN ================= */}
+
+      <main className="dashboard-main">
+
+        {/* ================= HERO ================= */}
+
+        <section className="dashboard-hero">
+          <div className="hero-content">
+            <div className="hero-label">
+              <Sparkles size={17} />
+              <span>VIDYA AI</span>
+            </div>
+
+            <h1>
+              Welcome back,{" "}
+              {displayName} 👋
+            </h1>
+
+            <p>
+              Your personalized AI-powered
+              multilingual learning journey
+              starts here.
+            </p>
+
+            <div className="hero-meta">
+              <span>
+                Class: {className}
+              </span>
+
+              <span>
+                Language: {language}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              className="hero-button"
+              onClick={() =>
+                navigate("/learning")
+              }
+            >
+              Continue Learning
+              <ArrowRight size={18} />
+            </button>
           </div>
 
-          <h1 style={{ fontSize: 34, margin: "18px 0 10px" }}>
-            Welcome to your learning space 👋
-          </h1>
+          <div className="hero-decoration">
+            <div className="hero-orbit hero-orbit-one" />
+            <div className="hero-orbit hero-orbit-two" />
 
-          <p
-            style={{
-              margin: 0,
-              opacity: 0.9,
-              fontSize: 17,
-              lineHeight: 1.6,
-            }}
-          >
-            Your personalized AI-powered multilingual learning journey starts
-            here.
-          </p>
+            <div className="hero-brain">
+              <Brain size={54} />
+            </div>
+          </div>
         </section>
 
-        {/* Quick actions */}
-        <section
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: 18,
-            marginBottom: 35,
-          }}
-        >
-          <ActionCard
-            icon={<Brain size={28} />}
-            title="Ask Vidya AI"
-            description="Ask questions and learn with your AI tutor."
+        {/* ================= QUICK STATS ================= */}
+
+        <section className="dashboard-stats">
+
+          <StatCard
+            icon={<Target size={21} />}
+            value="0%"
+            label="Learning progress"
           />
 
-          <ActionCard
-            icon={<BookOpen size={28} />}
-            title="My Lessons"
-            description="Continue your personalized learning."
+          <StatCard
+            icon={<Flame size={21} />}
+            value="0"
+            label="Day streak"
           />
 
-          <ActionCard
-            icon={<Languages size={28} />}
-            title="Language Learning"
-            description="Learn concepts in your preferred language."
+          <StatCard
+            icon={<Clock3 size={21} />}
+            value="0h"
+            label="Learning time"
           />
 
-          <ActionCard
-            icon={<Trophy size={28} />}
-            title="My Progress"
-            description="Track your learning journey and achievements."
+          <StatCard
+            icon={<Trophy size={21} />}
+            value="0"
+            label="Achievements"
           />
+
         </section>
 
-        {/* Subjects */}
-        <section
-          style={{
-            background: "#fff",
-            border: "1px solid #e2e8f0",
-            borderRadius: 20,
-            padding: 25,
-          }}
-        >
-          <h2 style={{ marginTop: 0 }}>Your Subjects</h2>
+        {/* ================= QUICK ACTIONS ================= */}
+
+        <section className="dashboard-section">
+
+          <div className="section-header">
+            <div>
+              <h2>Quick actions</h2>
+
+              <p>
+                Choose how you want to learn today.
+              </p>
+            </div>
+          </div>
+
+          <div className="action-grid">
+
+            <ActionCard
+              icon={<Brain size={28} />}
+              title="Ask Vidya AI"
+              description="Ask questions and learn with your personal AI tutor."
+              onClick={() =>
+                navigate(
+                  "/learning/general/ai-tutor"
+                )
+              }
+            />
+
+            <ActionCard
+              icon={<BookOpen size={28} />}
+              title="My Lessons"
+              description="Continue your personalized lessons and explore topics."
+              onClick={() =>
+                navigate("/learning")
+              }
+            />
+
+            <ActionCard
+              icon={<Languages size={28} />}
+              title="Language Learning"
+              description="Choose or change the language you want to learn in."
+              onClick={() =>
+                navigate(
+                  "/onboarding/languages"
+                )
+              }
+            />
+
+            <ActionCard
+              icon={<Trophy size={28} />}
+              title="My Progress"
+              description="Track your learning progress, streaks and achievements."
+              onClick={() =>
+                navigate("/progress")
+              }
+            />
+
+          </div>
+        </section>
+
+        {/* ================= SUBJECTS ================= */}
+
+        <section className="dashboard-section">
+
+          <div className="section-header">
+            <div>
+              <h2>Your subjects</h2>
+
+              <p>
+                Continue learning the subjects
+                you selected during onboarding.
+              </p>
+            </div>
+
+            {subjects.length > 0 && (
+              <button
+                type="button"
+                className="view-all-button"
+                onClick={() =>
+                  navigate("/learning")
+                }
+              >
+                View all
+                <ChevronRight size={17} />
+              </button>
+            )}
+          </div>
 
           {subjects.length > 0 ? (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-                gap: 14,
-              }}
-            >
+            <div className="subject-grid">
+
               {subjects.map((subject) => (
-                <div
+                <button
+                  type="button"
                   key={subject}
-                  style={{
-                    padding: 18,
-                    borderRadius: 14,
-                    background: "#eff6ff",
-                    border: "1px solid #bfdbfe",
-                    fontWeight: 600,
-                  }}
+                  className="subject-card"
+                  onClick={() =>
+                    navigate(
+                      `/learning/${encodeURIComponent(
+                        subject
+                      )}`
+                    )
+                  }
                 >
-                  {subject}
-                </div>
+                  <div className="subject-icon">
+                    <BookOpen size={22} />
+                  </div>
+
+                  <div className="subject-info">
+                    <h3>
+                      {formatSubject(subject)}
+                    </h3>
+
+                    <span>
+                      Continue learning
+                    </span>
+                  </div>
+
+                  <ChevronRight size={19} />
+                </button>
               ))}
+
             </div>
           ) : (
-            <p style={{ color: "#64748b" }}>
-              Your selected subjects will appear here.
-            </p>
+            <div className="dashboard-empty">
+
+              <div className="empty-icon">
+                <BookOpen size={28} />
+              </div>
+
+              <h3>
+                No subjects selected yet
+              </h3>
+
+              <p>
+                Complete your learning preferences
+                to personalize your dashboard.
+              </p>
+
+              <button
+                type="button"
+                onClick={() =>
+                  navigate(
+                    "/onboarding/subjects"
+                  )
+                }
+              >
+                Choose subjects
+                <ArrowRight size={17} />
+              </button>
+
+            </div>
           )}
+        </section>
+
+        {/* ================= AI CTA ================= */}
+
+        <section className="dashboard-ai-card">
+
+          <div className="ai-card-icon">
+            <Sparkles size={26} />
+          </div>
+
+          <div className="ai-card-content">
+            <h2>
+              Need help understanding
+              something?
+            </h2>
+
+            <p>
+              Ask Vidya AI to explain difficult
+              concepts in a simple way and in
+              your preferred language.
+            </p>
+          </div>
 
           <button
-            onClick={() => navigate("/learning")}
-            style={{
-              marginTop: 24,
-              border: 0,
-              background: "#2563eb",
-              color: "#fff",
-              padding: "13px 18px",
-              borderRadius: 12,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-            }}
+            type="button"
+            onClick={() =>
+              navigate(
+                "/learning/general/ai-tutor"
+              )
+            }
           >
-            Start Learning
+            Ask Vidya AI
             <ArrowRight size={18} />
           </button>
+
         </section>
+
       </main>
+
+      {/* ================= MOBILE NAV ================= */}
+
+      <nav className="dashboard-mobile-nav">
+
+        <button
+          type="button"
+          onClick={() =>
+            navigate("/dashboard")
+          }
+        >
+          <BookOpen size={19} />
+          <span>Home</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            navigate("/learning")
+          }
+        >
+          <Brain size={19} />
+          <span>Learn</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            navigate("/progress")
+          }
+        >
+          <Trophy size={19} />
+          <span>Progress</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            navigate("/onboarding/review")
+          }
+        >
+          <User size={19} />
+          <span>Profile</span>
+        </button>
+
+      </nav>
     </div>
   );
 }
 
-function ActionCard({ icon, title, description }) {
+/* =========================================================
+   STAT CARD
+========================================================= */
+
+function StatCard({
+  icon,
+  value,
+  label,
+}) {
   return (
-    <div
-      style={{
-        background: "#fff",
-        border: "1px solid #e2e8f0",
-        borderRadius: 18,
-        padding: 22,
-      }}
-    >
-      <div style={{ color: "#2563eb", marginBottom: 12 }}>{icon}</div>
+    <div className="dashboard-stat-card">
 
-      <h3 style={{ margin: "0 0 8px" }}>{title}</h3>
+      <div className="stat-icon">
+        {icon}
+      </div>
 
-      <p
-        style={{
-          margin: 0,
-          color: "#64748b",
-          lineHeight: 1.5,
-          fontSize: 14,
-        }}
-      >
-        {description}
-      </p>
+      <div className="stat-content">
+        <strong>{value}</strong>
+        <span>{label}</span>
+      </div>
+
     </div>
   );
-      }
+}
+
+/* =========================================================
+   ACTION CARD
+========================================================= */
+
+function ActionCard({
+  icon,
+  title,
+  description,
+  onClick,
+}) {
+  return (
+    <button
+      type="button"
+      className="dashboard-action-card"
+      onClick={onClick}
+    >
+
+      <div className="action-icon">
+        {icon}
+      </div>
+
+      <div className="action-content">
+
+        <h3>{title}</h3>
+
+        <p>{description}</p>
+
+      </div>
+
+      <ArrowRight
+        className="action-arrow"
+        size={19}
+      />
+
+    </button>
+  );
+    }
