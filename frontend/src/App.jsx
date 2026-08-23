@@ -1,4 +1,4 @@
-import React from "react";
+          import React from "react";
 import {
   BrowserRouter,
   Routes,
@@ -9,13 +9,17 @@ import {
 
 import { OnboardingProvider } from "./context/OnboardingContext";
 
+// =========================
 // Authentication
+// =========================
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 
+// =========================
 // Onboarding
+// =========================
 import Welcome from "./pages/onboarding/Welcome";
 import ClassBoard from "./pages/onboarding/ClassBoard";
 import Languages from "./pages/onboarding/Languages";
@@ -24,10 +28,16 @@ import Preferences from "./pages/onboarding/Preferences";
 import Review from "./pages/onboarding/Review";
 import Complete from "./pages/onboarding/Complete";
 
+// =========================
 // Student
+// =========================
 import Dashboard from "./pages/student/Dashboard";
 import LearningHub from "./pages/student/LearningHub";
+import SubjectLearning from "./pages/student/SubjectLearning";
 
+// =========================
+// Home Page
+// =========================
 function Home() {
   return (
     <div
@@ -40,17 +50,19 @@ function Home() {
           "linear-gradient(135deg, #eff6ff, #eef2ff, #f8fafc)",
         fontFamily: "Arial, sans-serif",
         padding: 24,
+        boxSizing: "border-box",
       }}
     >
       <div
         style={{
           width: "100%",
           maxWidth: 620,
-          background: "#fff",
+          background: "#ffffff",
           borderRadius: 24,
           padding: "48px 32px",
           textAlign: "center",
-          boxShadow: "0 20px 50px rgba(15,23,42,0.10)",
+          boxShadow:
+            "0 20px 50px rgba(15,23,42,0.10)",
           border: "1px solid #e2e8f0",
         }}
       >
@@ -61,7 +73,7 @@ function Home() {
             margin: "0 auto 20px",
             borderRadius: 20,
             background: "#2563eb",
-            color: "#fff",
+            color: "#ffffff",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -72,7 +84,13 @@ function Home() {
           V
         </div>
 
-        <h1 style={{ margin: "0 0 12px", fontSize: 40 }}>
+        <h1
+          style={{
+            margin: "0 0 12px",
+            fontSize: 40,
+            color: "#0f172a",
+          }}
+        >
           VIDYA AI
         </h1>
 
@@ -85,8 +103,9 @@ function Home() {
             lineHeight: 1.6,
           }}
         >
-          AI-powered multilingual learning that helps students
-          understand, practice and learn without language barriers.
+          AI-powered multilingual learning that helps
+          students understand, practice and learn
+          without language barriers.
         </p>
 
         <Link
@@ -97,30 +116,60 @@ function Home() {
             justifyContent: "center",
             textDecoration: "none",
             background: "#2563eb",
-            color: "#fff",
+            color: "#ffffff",
             padding: "14px 28px",
             borderRadius: 12,
             fontWeight: 700,
+            fontSize: 16,
           }}
         >
           Get Started →
         </Link>
+
+        <p
+          style={{
+            marginTop: 22,
+            marginBottom: 0,
+            color: "#94a3b8",
+            fontSize: 13,
+          }}
+        >
+          Your learning. Your language. Your pace.
+        </p>
       </div>
     </div>
   );
 }
 
+// =========================
+// App
+// =========================
 function App() {
   return (
     <OnboardingProvider>
       <BrowserRouter>
         <Routes>
-          {/* Home */}
-          <Route path="/" element={<Home />} />
 
-          {/* Authentication */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          {/* =========================
+              HOME
+          ========================= */}
+          <Route
+            path="/"
+            element={<Home />}
+          />
+
+          {/* =========================
+              AUTHENTICATION
+          ========================= */}
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+
+          <Route
+            path="/signup"
+            element={<Signup />}
+          />
 
           <Route
             path="/forgot-password"
@@ -132,7 +181,10 @@ function App() {
             element={<ResetPassword />}
           />
 
-          {/* Onboarding */}
+          {/* =========================
+              ONBOARDING
+          ========================= */}
+
           <Route
             path="/onboarding/welcome"
             element={<Welcome />}
@@ -168,22 +220,64 @@ function App() {
             element={<Complete />}
           />
 
-          {/* Student */}
+          {/* =========================
+              STUDENT DASHBOARD
+          ========================= */}
+
           <Route
             path="/dashboard"
             element={<Dashboard />}
           />
+
+          {/* =========================
+              LEARNING HUB
+          ========================= */}
 
           <Route
             path="/learning"
             element={<LearningHub />}
           />
 
-          {/* Unknown routes */}
+          {/* =========================
+              SUBJECT LEARNING
+              
+              Example:
+              /learning/Mathematics
+              /learning/Science
+              /learning/English
+              /learning/Social%20Science
+          ========================= */}
+
+          <Route
+            path="/learning/:subject"
+            element={<SubjectLearning />}
+          />
+
+          {/* =========================
+              FUTURE LEARNING ROUTES
+          ========================= */}
+
+          <Route
+            path="/learning/:subject/:topic"
+            element={<SubjectLearning />}
+          />
+
+          {/* =========================
+              UNKNOWN ROUTES
+              
+              MUST REMAIN LAST
+          ========================= */}
+
           <Route
             path="*"
-            element={<Navigate to="/" replace />}
+            element={
+              <Navigate
+                to="/"
+                replace
+              />
+            }
           />
+
         </Routes>
       </BrowserRouter>
     </OnboardingProvider>
