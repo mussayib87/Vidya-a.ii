@@ -1,0 +1,537 @@
+/* =========================================================
+   VIDYA AI — PREMIUM DESIGN SYSTEM
+   Frontend v1
+   ========================================================= */
+
+:root {
+  /* ---------- Brand ---------- */
+
+  --vidya-primary: #5b5ce2;
+  --vidya-primary-dark: #4647c7;
+  --vidya-primary-soft: #eeefff;
+  --vidya-primary-glow: rgba(91, 92, 226, 0.18);
+
+  --vidya-accent: #7c5cff;
+  --vidya-accent-soft: #f1edff;
+
+  /* ---------- Neutrals ---------- */
+
+  --vidya-white: #ffffff;
+  --vidya-bg: #f7f8fc;
+  --vidya-surface: #ffffff;
+  --vidya-surface-soft: #fafaff;
+
+  --vidya-text: #15162b;
+  --vidya-text-secondary: #52546b;
+  --vidya-text-muted: #8b8da3;
+
+  --vidya-border: #e8e9f2;
+  --vidya-border-strong: #dfe0eb;
+
+  /* ---------- Semantic ---------- */
+
+  --vidya-success: #18a66a;
+  --vidya-success-soft: #eaf9f2;
+
+  --vidya-warning: #e49a24;
+  --vidya-warning-soft: #fff7e8;
+
+  --vidya-danger: #e65353;
+  --vidya-danger-soft: #fff0f0;
+
+  --vidya-info: #3182ce;
+  --vidya-info-soft: #edf6ff;
+
+  /* ---------- Radius ---------- */
+
+  --vidya-radius-xs: 8px;
+  --vidya-radius-sm: 12px;
+  --vidya-radius-md: 16px;
+  --vidya-radius-lg: 22px;
+  --vidya-radius-xl: 28px;
+  --vidya-radius-pill: 999px;
+
+  /* ---------- Shadows ---------- */
+
+  --vidya-shadow-xs:
+    0 1px 2px rgba(20, 22, 45, 0.04);
+
+  --vidya-shadow-sm:
+    0 4px 14px rgba(20, 22, 45, 0.06);
+
+  --vidya-shadow-md:
+    0 12px 30px rgba(20, 22, 45, 0.08);
+
+  --vidya-shadow-lg:
+    0 24px 60px rgba(20, 22, 45, 0.12);
+
+  --vidya-shadow-primary:
+    0 12px 30px rgba(91, 92, 226, 0.20);
+
+  /* ---------- Typography ---------- */
+
+  --vidya-font:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  --vidya-display: clamp(2.7rem, 7vw, 5.8rem);
+
+  --vidya-h1: clamp(2rem, 4vw, 3.5rem);
+  --vidya-h2: clamp(1.6rem, 3vw, 2.5rem);
+  --vidya-h3: clamp(1.15rem, 2vw, 1.45rem);
+
+  --vidya-body: 1rem;
+  --vidya-small: 0.875rem;
+
+  /* ---------- Layout ---------- */
+
+  --vidya-content-width: 1180px;
+  --vidya-reading-width: 720px;
+
+  --vidya-section-space: clamp(72px, 10vw, 132px);
+
+  /* ---------- Motion ---------- */
+
+  --vidya-fast: 140ms ease;
+  --vidya-normal: 220ms ease;
+  --vidya-slow: 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--vidya-bg);
+  color: var(--vidya-text);
+  font-family: var(--vidya-font);
+  font-size: var(--vidya-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+:focus-visible {
+  outline: 3px solid rgba(91, 92, 226, 0.28);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(91, 92, 226, 0.18);
+  color: var(--vidya-text);
+}
+
+/* =========================================================
+   CONTAINERS
+   ========================================================= */
+
+.vidya-container {
+  width: min(
+    calc(100% - 40px),
+    var(--vidya-content-width)
+  );
+  margin-inline: auto;
+}
+
+.vidya-reading-container {
+  width: min(
+    calc(100% - 40px),
+    var(--vidya-reading-width)
+  );
+  margin-inline: auto;
+}
+
+/* =========================================================
+   SURFACES
+   ========================================================= */
+
+.vidya-card {
+  background: var(--vidya-surface);
+  border: 1px solid var(--vidya-border);
+  border-radius: var(--vidya-radius-lg);
+  box-shadow: var(--vidya-shadow-sm);
+}
+
+.vidya-card-interactive {
+  transition:
+    transform var(--vidya-normal),
+    box-shadow var(--vidya-normal),
+    border-color var(--vidya-normal);
+}
+
+.vidya-card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(91, 92, 226, 0.22);
+  box-shadow: var(--vidya-shadow-md);
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.vidya-button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  padding: 0 20px;
+
+  border: 1px solid transparent;
+  border-radius: var(--vidya-radius-sm);
+
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+
+  transition:
+    transform var(--vidya-fast),
+    box-shadow var(--vidya-normal),
+    background var(--vidya-normal),
+    border-color var(--vidya-normal);
+}
+
+.vidya-button:hover {
+  transform: translateY(-1px);
+}
+
+.vidya-button:active {
+  transform: translateY(0);
+}
+
+.vidya-button-primary {
+  color: white;
+  background:
+    linear-gradient(
+      135deg,
+      var(--vidya-primary),
+      var(--vidya-accent)
+    );
+  box-shadow: var(--vidya-shadow-primary);
+}
+
+.vidya-button-primary:hover {
+  box-shadow:
+    0 16px 36px rgba(91, 92, 226, 0.26);
+}
+
+.vidya-button-secondary {
+  color: var(--vidya-text);
+  background: var(--vidya-white);
+  border-color: var(--vidya-border);
+}
+
+.vidya-button-secondary:hover {
+  border-color: var(--vidya-border-strong);
+  box-shadow: var(--vidya-shadow-sm);
+}
+
+.vidya-button-ghost {
+  color: var(--vidya-text-secondary);
+  background: transparent;
+}
+
+.vidya-button-ghost:hover {
+  color: var(--vidya-primary);
+  background: var(--vidya-primary-soft);
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.vidya-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  width: fit-content;
+
+  padding: 7px 11px;
+
+  border-radius: var(--vidya-radius-pill);
+
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.vidya-badge-primary {
+  color: var(--vidya-primary-dark);
+  background: var(--vidya-primary-soft);
+}
+
+.vidya-badge-success {
+  color: #117a4e;
+  background: var(--vidya-success-soft);
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+.vidya-display {
+  margin: 0;
+  font-size: var(--vidya-display);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  font-weight: 800;
+}
+
+.vidya-heading-1 {
+  margin: 0;
+  font-size: var(--vidya-h1);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.vidya-heading-2 {
+  margin: 0;
+  font-size: var(--vidya-h2);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+}
+
+.vidya-heading-3 {
+  margin: 0;
+  font-size: var(--vidya-h3);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 750;
+}
+
+.vidya-muted {
+  color: var(--vidya-text-muted);
+}
+
+.vidya-secondary-text {
+  color: var(--vidya-text-secondary);
+}
+
+/* =========================================================
+   GRADIENT TEXT
+   ========================================================= */
+
+.vidya-gradient-text {
+  color: var(--vidya-primary);
+  background:
+    linear-gradient(
+      135deg,
+      var(--vidya-primary),
+      var(--vidya-accent)
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================================
+   GLOW
+   ========================================================= */
+
+.vidya-glow {
+  position: relative;
+}
+
+.vidya-glow::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+
+  width: 260px;
+  height: 260px;
+
+  left: 50%;
+  top: 30%;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      var(--vidya-primary-glow),
+      transparent 70%
+    );
+
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.vidya-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--vidya-border);
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes vidya-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vidya-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vidya-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.vidya-animate-fade-up {
+  animation: vidya-fade-up 650ms var(--vidya-slow) both;
+}
+
+.vidya-animate-fade-in {
+  animation: vidya-fade-in 500ms ease both;
+}
+
+.vidya-animate-scale {
+  animation: vidya-scale-in 500ms var(--vidya-slow) both;
+}
+
+/* =========================================================
+   STAGGER
+   ========================================================= */
+
+.vidya-delay-1 {
+  animation-delay: 80ms;
+}
+
+.vidya-delay-2 {
+  animation-delay: 160ms;
+}
+
+.vidya-delay-3 {
+  animation-delay: 240ms;
+}
+
+.vidya-delay-4 {
+  animation-delay: 320ms;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .vidya-container,
+  .vidya-reading-container {
+    width: min(
+      calc(100% - 28px),
+      var(--vidya-content-width)
+    );
+  }
+
+  .vidya-card {
+    border-radius: var(--vidya-radius-md);
+  }
+
+  .vidya-button {
+    min-height: 46px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vidya-container,
+  .vidya-reading-container {
+    width: min(
+      calc(100% - 22px),
+      var(--vidya-content-width)
+    );
+  }
+
+  .vidya-button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+    }
