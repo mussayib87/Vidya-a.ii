@@ -5,7 +5,6 @@ import {
   Route,
   Navigate,
   Link,
-  Outlet,
 } from "react-router-dom";
 
 import { OnboardingProvider } from "./context/OnboardingContext";
@@ -45,7 +44,7 @@ import AITutor from "./pages/student/AITutor";
 import Progress from "./pages/student/Progress";
 
 // =========================
-// Home
+// Home Page
 // =========================
 function Home() {
   return (
@@ -162,17 +161,6 @@ function AuthPage({ children }) {
 }
 
 // =========================
-// Student layout route
-// =========================
-function StudentRouteLayout() {
-  return (
-    <StudentLayout>
-      <Outlet />
-    </StudentLayout>
-  );
-}
-
-// =========================
 // App
 // =========================
 function App() {
@@ -191,7 +179,7 @@ function App() {
           />
 
           {/* =========================
-              AUTH
+              AUTHENTICATION
           ========================= */}
 
           <Route
@@ -270,36 +258,48 @@ function App() {
           />
 
           {/* =========================
-              STUDENT
+              STUDENT APPLICATION
           ========================= */}
 
-          <Route element={<StudentRouteLayout />}>
+          <Route element={<StudentLayout />}>
+
+            {/* Dashboard */}
 
             <Route
               path="/dashboard"
               element={<Dashboard />}
             />
 
+            {/* Learning Hub */}
+
             <Route
               path="/learning"
               element={<LearningHub />}
             />
+
+            {/* Subject */}
 
             <Route
               path="/learning/:subject"
               element={<SubjectLearning />}
             />
 
-            {/* Must be BEFORE :topic */}
+            {/* AI Tutor
+                Keep BEFORE :topic */}
+
             <Route
               path="/learning/:subject/ai-tutor"
               element={<AITutor />}
             />
 
+            {/* Topic */}
+
             <Route
               path="/learning/:subject/:topic"
               element={<SubjectLearning />}
             />
+
+            {/* Progress */}
 
             <Route
               path="/progress"
