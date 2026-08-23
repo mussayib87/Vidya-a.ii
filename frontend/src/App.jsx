@@ -26,6 +26,7 @@ import Complete from "./pages/onboarding/Complete";
 
 // Student
 import Dashboard from "./pages/student/Dashboard";
+import LearningHub from "./pages/student/LearningHub";
 
 function Home() {
   return (
@@ -36,63 +37,56 @@ function Home() {
         alignItems: "center",
         justifyContent: "center",
         background:
-          "linear-gradient(135deg, #eff6ff 0%, #eef2ff 50%, #f8fafc 100%)",
+          "linear-gradient(135deg, #eff6ff, #eef2ff, #f8fafc)",
         fontFamily: "Arial, sans-serif",
-        padding: "24px",
-        boxSizing: "border-box",
+        padding: 24,
       }}
     >
       <div
         style={{
           width: "100%",
-          maxWidth: "620px",
-          background: "#ffffff",
-          borderRadius: "24px",
+          maxWidth: 620,
+          background: "#fff",
+          borderRadius: 24,
           padding: "48px 32px",
           textAlign: "center",
-          boxShadow: "0 20px 50px rgba(15, 23, 42, 0.10)",
+          boxShadow: "0 20px 50px rgba(15,23,42,0.10)",
           border: "1px solid #e2e8f0",
         }}
       >
         <div
           style={{
-            width: "72px",
-            height: "72px",
+            width: 72,
+            height: 72,
             margin: "0 auto 20px",
-            borderRadius: "20px",
+            borderRadius: 20,
             background: "#2563eb",
-            color: "#ffffff",
+            color: "#fff",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "28px",
-            fontWeight: "800",
+            fontSize: 28,
+            fontWeight: 800,
           }}
         >
           V
         </div>
 
-        <h1
-          style={{
-            margin: "0 0 12px",
-            fontSize: "40px",
-            color: "#0f172a",
-          }}
-        >
+        <h1 style={{ margin: "0 0 12px", fontSize: 40 }}>
           VIDYA AI
         </h1>
 
         <p
           style={{
             margin: "0 auto 28px",
-            maxWidth: "480px",
+            maxWidth: 480,
             color: "#64748b",
-            fontSize: "17px",
+            fontSize: 17,
             lineHeight: 1.6,
           }}
         >
-          AI-powered multilingual learning that helps students understand,
-          practice and learn without language barriers.
+          AI-powered multilingual learning that helps students
+          understand, practice and learn without language barriers.
         </p>
 
         <Link
@@ -103,25 +97,14 @@ function Home() {
             justifyContent: "center",
             textDecoration: "none",
             background: "#2563eb",
-            color: "#ffffff",
+            color: "#fff",
             padding: "14px 28px",
-            borderRadius: "12px",
-            fontWeight: "700",
-            fontSize: "16px",
+            borderRadius: 12,
+            fontWeight: 700,
           }}
         >
           Get Started →
         </Link>
-
-        <div
-          style={{
-            marginTop: "24px",
-            fontSize: "13px",
-            color: "#94a3b8",
-          }}
-        >
-          Learn • Practice • Understand
-        </div>
       </div>
     </div>
   );
@@ -137,7 +120,6 @@ function App() {
 
           {/* Authentication */}
           <Route path="/login" element={<Login />} />
-
           <Route path="/signup" element={<Signup />} />
 
           <Route
@@ -186,10 +168,15 @@ function App() {
             element={<Complete />}
           />
 
-          {/* Student Dashboard */}
+          {/* Student */}
           <Route
             path="/dashboard"
             element={<Dashboard />}
+          />
+
+          <Route
+            path="/learning"
+            element={<LearningHub />}
           />
 
           {/* Unknown routes */}
