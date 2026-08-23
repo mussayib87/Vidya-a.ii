@@ -45,7 +45,7 @@ import AITutor from "./pages/student/AITutor";
 import Progress from "./pages/student/Progress";
 
 // =========================
-// Home Page
+// Home
 // =========================
 function Home() {
   return (
@@ -151,7 +151,7 @@ function Home() {
 }
 
 // =========================
-// Auth Layout Wrapper
+// Auth page wrapper
 // =========================
 function AuthPage({ children }) {
   return (
@@ -162,9 +162,9 @@ function AuthPage({ children }) {
 }
 
 // =========================
-// Student Layout Wrapper
+// Student layout route
 // =========================
-function StudentPages() {
+function StudentRouteLayout() {
   return (
     <StudentLayout>
       <Outlet />
@@ -191,7 +191,7 @@ function App() {
           />
 
           {/* =========================
-              AUTHENTICATION
+              AUTH
           ========================= */}
 
           <Route
@@ -270,51 +270,36 @@ function App() {
           />
 
           {/* =========================
-              STUDENT APPLICATION
+              STUDENT
           ========================= */}
 
-          <Route element={<StudentPages />}>
-
-            {/* Dashboard */}
+          <Route element={<StudentRouteLayout />}>
 
             <Route
               path="/dashboard"
               element={<Dashboard />}
             />
 
-            {/* Learning Hub */}
-
             <Route
               path="/learning"
               element={<LearningHub />}
             />
-
-            {/* Subject */}
 
             <Route
               path="/learning/:subject"
               element={<SubjectLearning />}
             />
 
-            {/* AI Tutor
-                IMPORTANT:
-                This must appear before
-                :topic.
-            */}
-
+            {/* Must be BEFORE :topic */}
             <Route
               path="/learning/:subject/ai-tutor"
               element={<AITutor />}
             />
 
-            {/* Topic */}
-
             <Route
               path="/learning/:subject/:topic"
               element={<SubjectLearning />}
             />
-
-            {/* Progress */}
 
             <Route
               path="/progress"
