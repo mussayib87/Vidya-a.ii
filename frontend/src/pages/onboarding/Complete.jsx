@@ -15,7 +15,7 @@ function Complete() {
   function handleStartLearning() {
     // Dashboard will be connected later.
     // For now, go to the main home page.
-    navigate("/");
+    navigate("/dashboard");
   }
 
   return (
