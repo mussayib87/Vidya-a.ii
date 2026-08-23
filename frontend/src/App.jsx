@@ -1,7 +1,7 @@
           import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { OnboardingProvider } from "./context/OnboardingContext";
-import Dashboard from "./pages/student/Dashboard";
+
 // Authentication
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
@@ -16,7 +16,7 @@ import Subjects from "./pages/onboarding/Subjects";
 import Preferences from "./pages/onboarding/Preferences";
 import Review from "./pages/onboarding/Review";
 import Complete from "./pages/onboarding/Complete";
-
+import Dashboard from "./pages/student/Dashboard";
 function App() {
   return (
     <OnboardingProvider>
