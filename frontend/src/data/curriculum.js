@@ -1,378 +1,568 @@
 // frontend/src/data/curriculum.js
 
-const curriculum = {
-  "10": {
-    "Karnataka State Board": {
-      Mathematics: {
-        Kannada: [
-          {
-            id: "real-numbers",
-            title: "ವಾಸ್ತವ ಸಂಖ್ಯೆಗಳು",
-            englishTitle: "Real Numbers",
-            topics: [
-              {
-                id: "euclids-division",
-                title: "ಯೂಕ್ಲಿಡ್ ಭಾಗಾಕಾರ ಅಲ್ಗಾರಿದಮ್",
-                englishTitle: "Euclid's Division Algorithm",
-              },
-              {
-                id: "fundamental-theorem",
-                title: "ಅಂಕಗಣಿತದ ಮೂಲ ಪ್ರಮೇಯ",
-                englishTitle: "Fundamental Theorem of Arithmetic",
-              },
-              {
-                id: "irrational-numbers",
-                title: "ಅಪರಿಮೇಯ ಸಂಖ್ಯೆಗಳು",
-                englishTitle: "Irrational Numbers",
-              },
-            ],
-          },
+/*
+  VIDYA AI CURRICULUM
+  ===================
 
-          {
-            id: "polynomials",
-            title: "ಬಹುಪದಿಗಳು",
-            englishTitle: "Polynomials",
-            topics: [
-              {
-                id: "zeros-polynomial",
-                title: "ಬಹುಪದಿಯ ಶೂನ್ಯಗಳು",
-                englishTitle: "Zeros of a Polynomial",
-              },
-              {
-                id: "relationship-zeros-coefficients",
-                title: "ಶೂನ್ಯಗಳು ಮತ್ತು ಗುಣಾಂಕಗಳ ನಡುವಿನ ಸಂಬಂಧ",
-                englishTitle:
-                  "Relationship Between Zeros and Coefficients",
-              },
-              {
-                id: "division-polynomials",
-                title: "ಬಹುಪದಿಗಳ ಭಾಗಾಕಾರ",
-                englishTitle: "Division of Polynomials",
-              },
-            ],
-          },
+  Structure:
 
-          {
-            id: "pair-linear-equations",
-            title: "ಎರಡು ಚರಗಳ ರೇಖೀಯ ಸಮೀಕರಣಗಳ ಜೋಡಿ",
-            englishTitle:
-              "Pair of Linear Equations in Two Variables",
-            topics: [
-              {
-                id: "graphical-method",
-                title: "ಗ್ರಾಫಿಕಲ್ ವಿಧಾನ",
-                englishTitle: "Graphical Method",
-              },
-              {
-                id: "substitution-method",
-                title: "ಸ್ಥಾಪನಾ ವಿಧಾನ",
-                englishTitle: "Substitution Method",
-              },
-              {
-                id: "elimination-method",
-                title: "ನಿರ್ಮೂಲನಾ ವಿಧಾನ",
-                englishTitle: "Elimination Method",
-              },
-            ],
-          },
+  Class
+    ↓
+  Board
+    ↓
+  Subject
+    ↓
+  Chapters
+    ↓
+  Topics
 
-          {
-            id: "quadratic-equations",
-            title: "ವರ್ಗ ಸಮೀಕರಣಗಳು",
-            englishTitle: "Quadratic Equations",
-            topics: [
-              {
-                id: "standard-form",
-                title: "ಪ್ರಮಾಣಿತ ರೂಪ",
-                englishTitle: "Standard Form",
-              },
-              {
-                id: "factorisation",
-                title: "ಅಪವರ್ತನ ವಿಧಾನ",
-                englishTitle: "Factorisation",
-              },
-              {
-                id: "quadratic-formula",
-                title: "ವರ್ಗ ಸಮೀಕರಣದ ಸೂತ್ರ",
-                englishTitle: "Quadratic Formula",
-              },
-            ],
-          },
+  IMPORTANT:
+  Language is NOT part of the curriculum lookup.
 
-          {
-            id: "arithmetic-progressions",
-            title: "ಅಂಕಗಣಿತ ಶ್ರೇಢಿಗಳು",
-            englishTitle: "Arithmetic Progressions",
-            topics: [
-              {
-                id: "sequence",
-                title: "ಅನುಕ್ರಮ ಮತ್ತು ಶ್ರೇಢಿ",
-                englishTitle: "Sequence and Progression",
-              },
-              {
-                id: "nth-term",
-                title: "nನೇ ಪದ",
-                englishTitle: "nth Term",
-              },
-              {
-                id: "sum-ap",
-                title: "ಮೊದಲ n ಪದಗಳ ಮೊತ್ತ",
-                englishTitle: "Sum of First n Terms",
-              },
-            ],
-          },
+  Language belongs to the student's learning preference
+  and will be used later by the AI lesson/tutor.
 
-          {
-            id: "triangles",
-            title: "ತ್ರಿಭುಜಗಳು",
-            englishTitle: "Triangles",
-            topics: [
-              {
-                id: "similar-triangles",
-                title: "ಸಾದೃಶ್ಯ ತ್ರಿಭುಜಗಳು",
-                englishTitle: "Similar Triangles",
-              },
-              {
-                id: "basic-proportionality",
-                title: "ಮೂಲ ಅನುಪಾತ ಪ್ರಮೇಯ",
-                englishTitle:
-                  "Basic Proportionality Theorem",
-              },
-              {
-                id: "pythagoras",
-                title: "ಪೈಥಾಗರಸ್ ಪ್ರಮೇಯ",
-                englishTitle: "Pythagoras Theorem",
-              },
-            ],
-          },
+  Example:
 
-          {
-            id: "coordinate-geometry",
-            title: "ನಿರ್ದೇಶಾಂಕ ರೇಖಾಗಣಿತ",
-            englishTitle: "Coordinate Geometry",
-            topics: [
-              {
-                id: "distance-formula",
-                title: "ದೂರ ಸೂತ್ರ",
-                englishTitle: "Distance Formula",
-              },
-              {
-                id: "section-formula",
-                title: "ವಿಭಾಗ ಸೂತ್ರ",
-                englishTitle: "Section Formula",
-              },
-              {
-                id: "area-triangle",
-                title: "ತ್ರಿಭುಜದ ವಿಸ್ತೀರ್ಣ",
-                englishTitle: "Area of Triangle",
-              },
-            ],
-          },
+  Class 10
+  Karnataka State Board
+  Mathematics
+        ↓
+  Chapters
+        ↓
+  Topics
+        ↓
+  AI explains in English / Kannada / Hindi / etc.
+*/
 
-          {
-            id: "introduction-trigonometry",
-            title: "ತ್ರಿಕೋನಮಿತಿಯ ಪರಿಚಯ",
-            englishTitle:
-              "Introduction to Trigonometry",
-            topics: [
-              {
-                id: "trigonometric-ratios",
-                title: "ತ್ರಿಕೋನಮಿತಿಯ ಅನುಪಾತಗಳು",
-                englishTitle: "Trigonometric Ratios",
-              },
-              {
-                id: "trigonometric-identities",
-                title: "ತ್ರಿಕೋನಮಿತಿಯ ಸರ್ವಸಮೀಕರಣಗಳು",
-                englishTitle:
-                  "Trigonometric Identities",
-              },
-              {
-                id: "values-ratios",
-                title: "ತ್ರಿಕೋನಮಿತಿಯ ಅನುಪಾತಗಳ ಮೌಲ್ಯಗಳು",
-                englishTitle:
-                  "Values of Trigonometric Ratios",
-              },
-            ],
-          },
-
-          {
-            id: "applications-trigonometry",
-            title: "ತ್ರಿಕೋನಮಿತಿಯ ಅನ್ವಯಗಳು",
-            englishTitle:
-              "Some Applications of Trigonometry",
-            topics: [
-              {
-                id: "heights-distances",
-                title: "ಎತ್ತರಗಳು ಮತ್ತು ದೂರಗಳು",
-                englishTitle: "Heights and Distances",
-              },
-              {
-                id: "angle-elevation",
-                title: "ಉನ್ನತಿ ಕೋನ",
-                englishTitle: "Angle of Elevation",
-              },
-              {
-                id: "angle-depression",
-                title: "ಅವನತಿ ಕೋನ",
-                englishTitle: "Angle of Depression",
-              },
-            ],
-          },
-
-          {
-            id: "circles",
-            title: "ವೃತ್ತಗಳು",
-            englishTitle: "Circles",
-            topics: [
-              {
-                id: "tangent-circle",
-                title: "ವೃತ್ತದ ಸ್ಪರ್ಶಕ",
-                englishTitle: "Tangent to a Circle",
-              },
-              {
-                id: "tangent-properties",
-                title: "ಸ್ಪರ್ಶಕದ ಗುಣಲಕ್ಷಣಗಳು",
-                englishTitle:
-                  "Properties of Tangents",
-              },
-            ],
-          },
-
-          {
-            id: "areas-related-circles",
-            title: "ವೃತ್ತಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ವಿಸ್ತೀರ್ಣಗಳು",
-            englishTitle:
-              "Areas Related to Circles",
-            topics: [
-              {
-                id: "area-circle",
-                title: "ವೃತ್ತದ ವಿಸ್ತೀರ್ಣ",
-                englishTitle: "Area of a Circle",
-              },
-              {
-                id: "sector",
-                title: "ವೃತ್ತಖಂಡ",
-                englishTitle: "Sector",
-              },
-              {
-                id: "segment",
-                title: "ವೃತ್ತಭಾಗ",
-                englishTitle: "Segment",
-              },
-            ],
-          },
-
-          {
-            id: "surface-areas-volumes",
-            title: "ಮೇಲ್ಮೈ ವಿಸ್ತೀರ್ಣಗಳು ಮತ್ತು ಘನಫಲಗಳು",
-            englishTitle:
-              "Surface Areas and Volumes",
-            topics: [
-              {
-                id: "cylinder",
-                title: "ಸಿಲಿಂಡರ್",
-                englishTitle: "Cylinder",
-              },
-              {
-                id: "cone",
-                title: "ಶಂಕು",
-                englishTitle: "Cone",
-              },
-              {
-                id: "sphere",
-                title: "ಗೋಳ",
-                englishTitle: "Sphere",
-              },
-            ],
-          },
-
-          {
-            id: "statistics",
-            title: "ಅಂಕಿಅಂಶಶಾಸ್ತ್ರ",
-            englishTitle: "Statistics",
-            topics: [
-              {
-                id: "mean",
-                title: "ಸರಾಸರಿ",
-                englishTitle: "Mean",
-              },
-              {
-                id: "median",
-                title: "ಮಧ್ಯಕ",
-                englishTitle: "Median",
-              },
-              {
-                id: "mode",
-                title: "ಬಹುಲಕ",
-                englishTitle: "Mode",
-              },
-            ],
-          },
-
-          {
-            id: "probability",
-            title: "ಸಂಭವನೀಯತೆ",
-            englishTitle: "Probability",
-            topics: [
-              {
-                id: "probability-basics",
-                title: "ಸಂಭವನೀಯತೆಯ ಮೂಲಭೂತ ಅಂಶಗಳು",
-                englishTitle:
-                  "Basics of Probability",
-              },
-              {
-                id: "probability-events",
-                title: "ಘಟನೆಗಳ ಸಂಭವನೀಯತೆ",
-                englishTitle:
-                  "Probability of Events",
-              },
-            ],
-          },
-        ],
+const mathematicsClass10Karnataka = [
+  {
+    id: "real-numbers",
+    title: "Real Numbers",
+    topics: [
+      {
+        id: "euclids-division",
+        title: "Euclid's Division Algorithm",
       },
-    },
+      {
+        id: "fundamental-theorem",
+        title: "Fundamental Theorem of Arithmetic",
+      },
+      {
+        id: "irrational-numbers",
+        title: "Irrational Numbers",
+      },
+    ],
   },
-};
 
+  {
+    id: "polynomials",
+    title: "Polynomials",
+    topics: [
+      {
+        id: "zeros-polynomial",
+        title: "Zeros of a Polynomial",
+      },
+      {
+        id: "relationship-zeros-coefficients",
+        title: "Relationship Between Zeros and Coefficients",
+      },
+      {
+        id: "division-polynomials",
+        title: "Division of Polynomials",
+      },
+    ],
+  },
+
+  {
+    id: "pair-linear-equations",
+    title: "Pair of Linear Equations in Two Variables",
+    topics: [
+      {
+        id: "graphical-method",
+        title: "Graphical Method",
+      },
+      {
+        id: "substitution-method",
+        title: "Substitution Method",
+      },
+      {
+        id: "elimination-method",
+        title: "Elimination Method",
+      },
+    ],
+  },
+
+  {
+    id: "quadratic-equations",
+    title: "Quadratic Equations",
+    topics: [
+      {
+        id: "standard-form",
+        title: "Standard Form",
+      },
+      {
+        id: "factorisation",
+        title: "Factorisation",
+      },
+      {
+        id: "quadratic-formula",
+        title: "Quadratic Formula",
+      },
+    ],
+  },
+
+  {
+    id: "arithmetic-progressions",
+    title: "Arithmetic Progressions",
+    topics: [
+      {
+        id: "sequence",
+        title: "Sequence and Progression",
+      },
+      {
+        id: "nth-term",
+        title: "nth Term",
+      },
+      {
+        id: "sum-ap",
+        title: "Sum of First n Terms",
+      },
+    ],
+  },
+
+  {
+    id: "triangles",
+    title: "Triangles",
+    topics: [
+      {
+        id: "similar-triangles",
+        title: "Similar Triangles",
+      },
+      {
+        id: "basic-proportionality",
+        title: "Basic Proportionality Theorem",
+      },
+      {
+        id: "pythagoras",
+        title: "Pythagoras Theorem",
+      },
+    ],
+  },
+
+  {
+    id: "coordinate-geometry",
+    title: "Coordinate Geometry",
+    topics: [
+      {
+        id: "distance-formula",
+        title: "Distance Formula",
+      },
+      {
+        id: "section-formula",
+        title: "Section Formula",
+      },
+      {
+        id: "area-triangle",
+        title: "Area of Triangle",
+      },
+    ],
+  },
+
+  {
+    id: "introduction-trigonometry",
+    title: "Introduction to Trigonometry",
+    topics: [
+      {
+        id: "trigonometric-ratios",
+        title: "Trigonometric Ratios",
+      },
+      {
+        id: "trigonometric-identities",
+        title: "Trigonometric Identities",
+      },
+      {
+        id: "values-ratios",
+        title: "Values of Trigonometric Ratios",
+      },
+    ],
+  },
+
+  {
+    id: "applications-trigonometry",
+    title: "Some Applications of Trigonometry",
+    topics: [
+      {
+        id: "heights-distances",
+        title: "Heights and Distances",
+      },
+      {
+        id: "angle-elevation",
+        title: "Angle of Elevation",
+      },
+      {
+        id: "angle-depression",
+        title: "Angle of Depression",
+      },
+    ],
+  },
+
+  {
+    id: "circles",
+    title: "Circles",
+    topics: [
+      {
+        id: "tangent-circle",
+        title: "Tangent to a Circle",
+      },
+      {
+        id: "tangent-properties",
+        title: "Properties of Tangents",
+      },
+    ],
+  },
+
+  {
+    id: "areas-related-circles",
+    title: "Areas Related to Circles",
+    topics: [
+      {
+        id: "area-circle",
+        title: "Area of a Circle",
+      },
+      {
+        id: "sector",
+        title: "Sector",
+      },
+      {
+        id: "segment",
+        title: "Segment",
+      },
+    ],
+  },
+
+  {
+    id: "surface-areas-volumes",
+    title: "Surface Areas and Volumes",
+    topics: [
+      {
+        id: "cylinder",
+        title: "Cylinder",
+      },
+      {
+        id: "cone",
+        title: "Cone",
+      },
+      {
+        id: "sphere",
+        title: "Sphere",
+      },
+    ],
+  },
+
+  {
+    id: "statistics",
+    title: "Statistics",
+    topics: [
+      {
+        id: "mean",
+        title: "Mean",
+      },
+      {
+        id: "median",
+        title: "Median",
+      },
+      {
+        id: "mode",
+        title: "Mode",
+      },
+    ],
+  },
+
+  {
+    id: "probability",
+    title: "Probability",
+    topics: [
+      {
+        id: "probability-basics",
+        title: "Basics of Probability",
+      },
+      {
+        id: "probability-events",
+        title: "Probability of Events",
+      },
+    ],
+  },
+];
+
+/*
+  Generic curriculum used temporarily for subjects
+  whose complete board-specific syllabus has not yet
+  been entered.
+
+  This prevents the application from showing
+  "Curriculum coming soon" and gives us a working
+  Chapter → Topic → AI Lesson flow.
+
+  Later these can be replaced with official,
+  board-specific curriculum data.
+*/
+
+const createGenericCurriculum = (subject) => [
+  {
+    id: `${slugify(subject)}-foundations`,
+    title: `${subject} Foundations`,
+    topics: [
+      {
+        id: `${slugify(subject)}-introduction`,
+        title: `Introduction to ${subject}`,
+      },
+      {
+        id: `${slugify(subject)}-basic-concepts`,
+        title: `Basic Concepts of ${subject}`,
+      },
+      {
+        id: `${slugify(subject)}-applications`,
+        title: `${subject} Applications`,
+      },
+    ],
+  },
+
+  {
+    id: `${slugify(subject)}-core-concepts`,
+    title: `Core Concepts`,
+    topics: [
+      {
+        id: `${slugify(subject)}-important-concepts`,
+        title: `Important Concepts`,
+      },
+      {
+        id: `${slugify(subject)}-examples`,
+        title: `Examples and Applications`,
+      },
+      {
+        id: `${slugify(subject)}-practice`,
+        title: `Practice Questions`,
+      },
+    ],
+  },
+
+  {
+    id: `${slugify(subject)}-revision`,
+    title: `Revision and Practice`,
+    topics: [
+      {
+        id: `${slugify(subject)}-revision`,
+        title: `${subject} Revision`,
+      },
+      {
+        id: `${slugify(subject)}-questions`,
+        title: `Important Questions`,
+      },
+      {
+        id: `${slugify(subject)}-assessment`,
+        title: `Self Assessment`,
+      },
+    ],
+  },
+];
+
+/*
+  Convert a subject name into a URL-safe ID.
+*/
+function slugify(value = "") {
+  return String(value)
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/*
+  Supported subjects from Subjects.jsx
+*/
+const supportedSubjects = [
+  "Mathematics",
+  "Science",
+  "English",
+  "Social Science",
+  "Computer Science",
+  "Kannada",
+];
+
+/*
+  Boards used by the onboarding UI.
+
+  We keep the structure flexible so additional boards
+  can be added later without changing SubjectLearning.jsx.
+*/
+const supportedBoards = [
+  "CBSE",
+  "ICSE",
+  "Karnataka State Board",
+  "Other State Board",
+];
+
+/*
+  Classes supported by the onboarding system.
+*/
+const supportedClasses = [
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+];
+
+/*
+  Main curriculum database.
+*/
+const curriculum = {};
+
+/*
+  Build the available structure for all supported
+  classes and boards.
+
+  Mathematics Class 10 Karnataka has the detailed
+  curriculum above.
+
+  Other combinations currently receive a generic
+  curriculum so navigation continues to work.
+*/
+supportedClasses.forEach((classLevel) => {
+  curriculum[classLevel] = {};
+
+  supportedBoards.forEach((board) => {
+    curriculum[classLevel][board] = {};
+
+    supportedSubjects.forEach((subject) => {
+      /*
+        Detailed Class 10 Karnataka Mathematics
+      */
+      if (
+        classLevel === "10" &&
+        board === "Karnataka State Board" &&
+        subject === "Mathematics"
+      ) {
+        curriculum[classLevel][board][subject] =
+          mathematicsClass10Karnataka;
+      } else {
+        /*
+          Temporary working curriculum for other
+          combinations.
+
+          This means:
+          Class 11 + ICSE + Social Science
+          will work.
+
+          Class 10 + Karnataka + Kannada
+          will work.
+
+          Class 8 + CBSE + Science
+          will work.
+
+          etc.
+        */
+        curriculum[classLevel][board][subject] =
+          createGenericCurriculum(subject);
+      }
+    });
+  });
+}
+
+/*
+  ======================================================
+  GET CURRICULUM
+  ======================================================
+
+  IMPORTANT:
+
+  Language is intentionally NOT required here.
+
+  Curriculum depends on:
+
+  Class
+  Board
+  Subject
+*/
 export function getCurriculum({
   classLevel,
   board,
   subject,
-  language,
 }) {
-  return (
-    curriculum?.[classLevel]?.[board]?.[subject]?.[
-      language
-    ] || []
-  );
+  const normalizedClass = String(
+    classLevel || ""
+  ).trim();
+
+  const normalizedBoard = String(
+    board || ""
+  ).trim();
+
+  const normalizedSubject = String(
+    subject || ""
+  ).trim();
+
+  if (
+    !normalizedClass ||
+    !normalizedBoard ||
+    !normalizedSubject
+  ) {
+    return [];
+  }
+
+  const result =
+    curriculum?.[
+      normalizedClass
+    ]?.[
+      normalizedBoard
+    ]?.[
+      normalizedSubject
+    ];
+
+  return Array.isArray(result) ? result : [];
 }
 
+/*
+  ======================================================
+  GET CHAPTER
+  ======================================================
+*/
 export function getChapter({
   classLevel,
   board,
   subject,
-  language,
   chapterId,
 }) {
   const chapters = getCurriculum({
     classLevel,
     board,
     subject,
-    language,
   });
+
+  if (!Array.isArray(chapters)) {
+    return null;
+  }
 
   return (
     chapters.find(
-      (chapter) => chapter.id === chapterId
+      (chapter) =>
+        chapter.id === chapterId
     ) || null
   );
 }
 
+/*
+  ======================================================
+  GET TOPIC
+  ======================================================
+*/
 export function getTopic({
   classLevel,
   board,
   subject,
-  language,
   chapterId,
   topicId,
 }) {
@@ -380,17 +570,87 @@ export function getTopic({
     classLevel,
     board,
     subject,
-    language,
     chapterId,
   });
 
-  if (!chapter) return null;
+  if (!chapter) {
+    return null;
+  }
+
+  const topics = Array.isArray(
+    chapter.topics
+  )
+    ? chapter.topics
+    : [];
 
   return (
-    chapter.topics.find(
-      (topic) => topic.id === topicId
+    topics.find(
+      (topic) =>
+        topic.id === topicId
     ) || null
   );
 }
 
+/*
+  ======================================================
+  GET AVAILABLE SUBJECTS
+  ======================================================
+*/
+export function getAvailableSubjects({
+  classLevel,
+  board,
+}) {
+  const normalizedClass = String(
+    classLevel || ""
+  ).trim();
+
+  const normalizedBoard = String(
+    board || ""
+  ).trim();
+
+  if (
+    !normalizedClass ||
+    !normalizedBoard
+  ) {
+    return [];
+  }
+
+  const boardData =
+    curriculum?.[
+      normalizedClass
+    ]?.[
+      normalizedBoard
+    ];
+
+  if (!boardData) {
+    return [];
+  }
+
+  return Object.keys(boardData);
+}
+
+/*
+  ======================================================
+  CHECK WHETHER CURRICULUM EXISTS
+  ======================================================
+*/
+export function hasCurriculum({
+  classLevel,
+  board,
+  subject,
+}) {
+  return (
+    getCurriculum({
+      classLevel,
+      board,
+      subject,
+    }).length > 0
+  );
+}
+
+/*
+  ======================================================
+  EXPORT
+  ======================================================
+*/
 export default curriculum;
