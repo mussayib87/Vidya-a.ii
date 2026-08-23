@@ -1,13 +1,20 @@
-          import React from "react";
+import React from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
   Navigate,
   Link,
+  Outlet,
 } from "react-router-dom";
 
 import { OnboardingProvider } from "./context/OnboardingContext";
+
+// =========================
+// Layouts
+// =========================
+import AuthLayout from "./layouts/AuthLayout";
+import StudentLayout from "./layouts/StudentLayout";
 
 // =========================
 // Authentication
@@ -34,6 +41,8 @@ import Complete from "./pages/onboarding/Complete";
 import Dashboard from "./pages/student/Dashboard";
 import LearningHub from "./pages/student/LearningHub";
 import SubjectLearning from "./pages/student/SubjectLearning";
+import AITutor from "./pages/student/AITutor";
+import Progress from "./pages/student/Progress";
 
 // =========================
 // Home Page
@@ -103,9 +112,9 @@ function Home() {
             lineHeight: 1.6,
           }}
         >
-          AI-powered multilingual learning that helps
-          students understand, practice and learn
-          without language barriers.
+          AI-powered multilingual learning that
+          helps students understand, practice and
+          learn without language barriers.
         </p>
 
         <Link
@@ -142,17 +151,40 @@ function Home() {
 }
 
 // =========================
+// Auth Layout Wrapper
+// =========================
+function AuthPage({ children }) {
+  return (
+    <AuthLayout>
+      {children}
+    </AuthLayout>
+  );
+}
+
+// =========================
+// Student Layout Wrapper
+// =========================
+function StudentPages() {
+  return (
+    <StudentLayout>
+      <Outlet />
+    </StudentLayout>
+  );
+}
+
+// =========================
 // App
 // =========================
 function App() {
   return (
-    <OnboardingProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <OnboardingProvider>
         <Routes>
 
           {/* =========================
               HOME
           ========================= */}
+
           <Route
             path="/"
             element={<Home />}
@@ -161,24 +193,41 @@ function App() {
           {/* =========================
               AUTHENTICATION
           ========================= */}
+
           <Route
             path="/login"
-            element={<Login />}
+            element={
+              <AuthPage>
+                <Login />
+              </AuthPage>
+            }
           />
 
           <Route
             path="/signup"
-            element={<Signup />}
+            element={
+              <AuthPage>
+                <Signup />
+              </AuthPage>
+            }
           />
 
           <Route
             path="/forgot-password"
-            element={<ForgotPassword />}
+            element={
+              <AuthPage>
+                <ForgotPassword />
+              </AuthPage>
+            }
           />
 
           <Route
             path="/reset-password"
-            element={<ResetPassword />}
+            element={
+              <AuthPage>
+                <ResetPassword />
+              </AuthPage>
+            }
           />
 
           {/* =========================
@@ -221,51 +270,61 @@ function App() {
           />
 
           {/* =========================
-              STUDENT DASHBOARD
+              STUDENT APPLICATION
           ========================= */}
 
-          <Route
-            path="/dashboard"
-            element={<Dashboard />}
-          />
+          <Route element={<StudentPages />}>
 
-          {/* =========================
-              LEARNING HUB
-          ========================= */}
+            {/* Dashboard */}
 
-          <Route
-            path="/learning"
-            element={<LearningHub />}
-          />
+            <Route
+              path="/dashboard"
+              element={<Dashboard />}
+            />
 
-          {/* =========================
-              SUBJECT LEARNING
-              
-              Example:
-              /learning/Mathematics
-              /learning/Science
-              /learning/English
-              /learning/Social%20Science
-          ========================= */}
+            {/* Learning Hub */}
 
-          <Route
-            path="/learning/:subject"
-            element={<SubjectLearning />}
-          />
+            <Route
+              path="/learning"
+              element={<LearningHub />}
+            />
 
-          {/* =========================
-              FUTURE LEARNING ROUTES
-          ========================= */}
+            {/* Subject */}
 
-          <Route
-            path="/learning/:subject/:topic"
-            element={<SubjectLearning />}
-          />
+            <Route
+              path="/learning/:subject"
+              element={<SubjectLearning />}
+            />
+
+            {/* AI Tutor
+                IMPORTANT:
+                This must appear before
+                :topic.
+            */}
+
+            <Route
+              path="/learning/:subject/ai-tutor"
+              element={<AITutor />}
+            />
+
+            {/* Topic */}
+
+            <Route
+              path="/learning/:subject/:topic"
+              element={<SubjectLearning />}
+            />
+
+            {/* Progress */}
+
+            <Route
+              path="/progress"
+              element={<Progress />}
+            />
+
+          </Route>
 
           {/* =========================
               UNKNOWN ROUTES
-              
-              MUST REMAIN LAST
           ========================= */}
 
           <Route
@@ -279,8 +338,8 @@ function App() {
           />
 
         </Routes>
-      </BrowserRouter>
-    </OnboardingProvider>
+      </OnboardingProvider>
+    </BrowserRouter>
   );
 }
 
