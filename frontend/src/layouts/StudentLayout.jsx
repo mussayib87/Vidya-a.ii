@@ -12,6 +12,10 @@ const navigationItems = [
     label: "Learning",
     to: "/learning",
   },
+  {
+    label: "Progress",
+    to: "/progress",
+  },
 ];
 
 function StudentLayout() {
