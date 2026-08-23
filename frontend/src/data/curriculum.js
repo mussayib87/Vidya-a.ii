@@ -2,7 +2,6 @@
 
 /*
   VIDYA AI CURRICULUM
-  ===================
 
   Structure:
 
@@ -17,23 +16,13 @@
   Topics
 
   IMPORTANT:
-  Language is NOT part of the curriculum lookup.
-
-  Language belongs to the student's learning preference
-  and will be used later by the AI lesson/tutor.
-
-  Example:
-
-  Class 10
-  Karnataka State Board
-  Mathematics
-        ↓
-  Chapters
-        ↓
-  Topics
-        ↓
-  AI explains in English / Kannada / Hindi / etc.
+  Language is NOT used to find curriculum.
+  Language will be used later by the AI Tutor.
 */
+
+// =====================================================
+// CLASS 10 - KARNATAKA STATE BOARD - MATHEMATICS
+// =====================================================
 
 const mathematicsClass10Karnataka = [
   {
@@ -295,241 +284,371 @@ const mathematicsClass10Karnataka = [
   },
 ];
 
-/*
-  Generic curriculum used temporarily for subjects
-  whose complete board-specific syllabus has not yet
-  been entered.
+// =====================================================
+// GENERIC CURRICULUM
+// =====================================================
 
-  This prevents the application from showing
-  "Curriculum coming soon" and gives us a working
-  Chapter → Topic → AI Lesson flow.
-
-  Later these can be replaced with official,
-  board-specific curriculum data.
-*/
-
-const createGenericCurriculum = (subject) => [
-  {
-    id: `${slugify(subject)}-foundations`,
-    title: `${subject} Foundations`,
-    topics: [
-      {
-        id: `${slugify(subject)}-introduction`,
-        title: `Introduction to ${subject}`,
-      },
-      {
-        id: `${slugify(subject)}-basic-concepts`,
-        title: `Basic Concepts of ${subject}`,
-      },
-      {
-        id: `${slugify(subject)}-applications`,
-        title: `${subject} Applications`,
-      },
-    ],
-  },
-
-  {
-    id: `${slugify(subject)}-core-concepts`,
-    title: `Core Concepts`,
-    topics: [
-      {
-        id: `${slugify(subject)}-important-concepts`,
-        title: `Important Concepts`,
-      },
-      {
-        id: `${slugify(subject)}-examples`,
-        title: `Examples and Applications`,
-      },
-      {
-        id: `${slugify(subject)}-practice`,
-        title: `Practice Questions`,
-      },
-    ],
-  },
-
-  {
-    id: `${slugify(subject)}-revision`,
-    title: `Revision and Practice`,
-    topics: [
-      {
-        id: `${slugify(subject)}-revision`,
-        title: `${subject} Revision`,
-      },
-      {
-        id: `${slugify(subject)}-questions`,
-        title: `Important Questions`,
-      },
-      {
-        id: `${slugify(subject)}-assessment`,
-        title: `Self Assessment`,
-      },
-    ],
-  },
-];
-
-/*
-  Convert a subject name into a URL-safe ID.
-*/
-function slugify(value = "") {
-  return String(value)
+function createGenericCurriculum(subject) {
+  const safeName = String(subject)
     .toLowerCase()
-    .trim()
-    .replace(/&/g, "and")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+
+  return [
+    {
+      id: `${safeName}-foundations`,
+      title: `${subject} Foundations`,
+      topics: [
+        {
+          id: `${safeName}-introduction`,
+          title: `Introduction to ${subject}`,
+        },
+        {
+          id: `${safeName}-basic-concepts`,
+          title: `Basic Concepts`,
+        },
+        {
+          id: `${safeName}-applications`,
+          title: `Applications`,
+        },
+      ],
+    },
+
+    {
+      id: `${safeName}-core-concepts`,
+      title: "Core Concepts",
+      topics: [
+        {
+          id: `${safeName}-important-concepts`,
+          title: "Important Concepts",
+        },
+        {
+          id: `${safeName}-examples`,
+          title: "Examples and Applications",
+        },
+        {
+          id: `${safeName}-practice`,
+          title: "Practice Questions",
+        },
+      ],
+    },
+
+    {
+      id: `${safeName}-revision`,
+      title: "Revision and Practice",
+      topics: [
+        {
+          id: `${safeName}-revision-topics`,
+          title: "Revision",
+        },
+        {
+          id: `${safeName}-important-questions`,
+          title: "Important Questions",
+        },
+        {
+          id: `${safeName}-assessment`,
+          title: "Self Assessment",
+        },
+      ],
+    },
+  ];
 }
 
-/*
-  Supported subjects from Subjects.jsx
-*/
-const supportedSubjects = [
-  "Mathematics",
-  "Science",
-  "English",
-  "Social Science",
-  "Computer Science",
-  "Kannada",
-];
+// =====================================================
+// CURRICULUM DATABASE
+// =====================================================
 
-/*
-  Boards used by the onboarding UI.
+const curriculum = {
+  "6": {
+    "CBSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-  We keep the structure flexible so additional boards
-  can be added later without changing SubjectLearning.jsx.
-*/
-const supportedBoards = [
-  "CBSE",
-  "ICSE",
-  "Karnataka State Board",
-  "Other State Board",
-];
+    "ICSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-/*
-  Classes supported by the onboarding system.
-*/
-const supportedClasses = [
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "11",
-  "12",
-];
+    "Karnataka State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-/*
-  Main curriculum database.
-*/
-const curriculum = {};
+    "Other State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+  },
 
-/*
-  Build the available structure for all supported
-  classes and boards.
+  "7": {
+    "CBSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-  Mathematics Class 10 Karnataka has the detailed
-  curriculum above.
+    "ICSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-  Other combinations currently receive a generic
-  curriculum so navigation continues to work.
-*/
-supportedClasses.forEach((classLevel) => {
-  curriculum[classLevel] = {};
+    "Karnataka State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-  supportedBoards.forEach((board) => {
-    curriculum[classLevel][board] = {};
+    "Other State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+  },
 
-    supportedSubjects.forEach((subject) => {
-      /*
-        Detailed Class 10 Karnataka Mathematics
-      */
-      if (
-        classLevel === "10" &&
-        board === "Karnataka State Board" &&
-        subject === "Mathematics"
-      ) {
-        curriculum[classLevel][board][subject] =
-          mathematicsClass10Karnataka;
-      } else {
-        /*
-          Temporary working curriculum for other
-          combinations.
+  "8": {
+    "CBSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-          This means:
-          Class 11 + ICSE + Social Science
-          will work.
+    "ICSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-          Class 10 + Karnataka + Kannada
-          will work.
+    "Karnataka State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-          Class 8 + CBSE + Science
-          will work.
+    "Other State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+  },
 
-          etc.
-        */
-        curriculum[classLevel][board][subject] =
-          createGenericCurriculum(subject);
-      }
-    });
-  });
-}
+  "9": {
+    "CBSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-/*
-  ======================================================
-  GET CURRICULUM
-  ======================================================
+    "ICSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-  IMPORTANT:
+    "Karnataka State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-  Language is intentionally NOT required here.
+    "Other State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+  },
 
-  Curriculum depends on:
+  "10": {
+    "CBSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
 
-  Class
-  Board
-  Subject
-*/
+    "ICSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "Karnataka State Board": {
+      Mathematics: mathematicsClass10Karnataka,
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "Other State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+  },
+
+  "11": {
+    "CBSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "ICSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "Karnataka State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "Other State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+  },
+
+  "12": {
+    "CBSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "ICSE": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "Karnataka State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+
+    "Other State Board": {
+      Mathematics: createGenericCurriculum("Mathematics"),
+      Science: createGenericCurriculum("Science"),
+      English: createGenericCurriculum("English"),
+      "Social Science": createGenericCurriculum("Social Science"),
+      "Computer Science": createGenericCurriculum("Computer Science"),
+      Kannada: createGenericCurriculum("Kannada"),
+    },
+  },
+};
+
+// =====================================================
+// GET CURRICULUM
+// =====================================================
+
 export function getCurriculum({
   classLevel,
   board,
   subject,
 }) {
-  const normalizedClass = String(
-    classLevel || ""
-  ).trim();
+  const classKey = String(classLevel || "").trim();
+  const boardKey = String(board || "").trim();
+  const subjectKey = String(subject || "").trim();
 
-  const normalizedBoard = String(
-    board || ""
-  ).trim();
+  const chapters =
+    curriculum?.[classKey]?.[boardKey]?.[subjectKey];
 
-  const normalizedSubject = String(
-    subject || ""
-  ).trim();
-
-  if (
-    !normalizedClass ||
-    !normalizedBoard ||
-    !normalizedSubject
-  ) {
-    return [];
-  }
-
-  const result =
-    curriculum?.[
-      normalizedClass
-    ]?.[
-      normalizedBoard
-    ]?.[
-      normalizedSubject
-    ];
-
-  return Array.isArray(result) ? result : [];
+  return Array.isArray(chapters) ? chapters : [];
 }
 
-/*
-  ======================================================
-  GET CHAPTER
-  ======================================================
-*/
+// =====================================================
+// GET CHAPTER
+// =====================================================
+
 export function getChapter({
   classLevel,
   board,
@@ -542,23 +661,17 @@ export function getChapter({
     subject,
   });
 
-  if (!Array.isArray(chapters)) {
-    return null;
-  }
-
   return (
     chapters.find(
-      (chapter) =>
-        chapter.id === chapterId
+      (chapter) => chapter.id === chapterId
     ) || null
   );
 }
 
-/*
-  ======================================================
-  GET TOPIC
-  ======================================================
-*/
+// =====================================================
+// GET TOPIC
+// =====================================================
+
 export function getTopic({
   classLevel,
   board,
@@ -577,63 +690,21 @@ export function getTopic({
     return null;
   }
 
-  const topics = Array.isArray(
-    chapter.topics
-  )
+  const topics = Array.isArray(chapter.topics)
     ? chapter.topics
     : [];
 
   return (
     topics.find(
-      (topic) =>
-        topic.id === topicId
+      (topic) => topic.id === topicId
     ) || null
   );
 }
 
-/*
-  ======================================================
-  GET AVAILABLE SUBJECTS
-  ======================================================
-*/
-export function getAvailableSubjects({
-  classLevel,
-  board,
-}) {
-  const normalizedClass = String(
-    classLevel || ""
-  ).trim();
+// =====================================================
+// CHECK CURRICULUM
+// =====================================================
 
-  const normalizedBoard = String(
-    board || ""
-  ).trim();
-
-  if (
-    !normalizedClass ||
-    !normalizedBoard
-  ) {
-    return [];
-  }
-
-  const boardData =
-    curriculum?.[
-      normalizedClass
-    ]?.[
-      normalizedBoard
-    ];
-
-  if (!boardData) {
-    return [];
-  }
-
-  return Object.keys(boardData);
-}
-
-/*
-  ======================================================
-  CHECK WHETHER CURRICULUM EXISTS
-  ======================================================
-*/
 export function hasCurriculum({
   classLevel,
   board,
@@ -648,9 +719,29 @@ export function hasCurriculum({
   );
 }
 
-/*
-  ======================================================
-  EXPORT
-  ======================================================
-*/
+// =====================================================
+// GET AVAILABLE SUBJECTS
+// =====================================================
+
+export function getAvailableSubjects({
+  classLevel,
+  board,
+}) {
+  const classKey = String(classLevel || "").trim();
+  const boardKey = String(board || "").trim();
+
+  const boardData =
+    curriculum?.[classKey]?.[boardKey];
+
+  if (!boardData) {
+    return [];
+  }
+
+  return Object.keys(boardData);
+}
+
+// =====================================================
+// DEFAULT EXPORT
+// =====================================================
+
 export default curriculum;
