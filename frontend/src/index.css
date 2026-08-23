@@ -1631,16 +1631,15 @@ a {
   background: #eff6ff;
 }
 
-.preference-option span {
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: white;
-  background: #2563eb;
-  font-size: 11px;
-  font-weight: 900;
+.preference-option > span {
+  width: auto;
+  height: auto;
+  display: block;
+  border-radius: 0;
+  color: inherit;
+  background: transparent;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .pace-grid {
