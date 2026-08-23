@@ -1,6 +1,14 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 const OnboardingContext = createContext(null);
+
+const STORAGE_KEY = "vidya_ai_onboarding";
 
 const initialData = {
   classLevel: "",
@@ -12,8 +20,48 @@ const initialData = {
   pace: "",
 };
 
+function loadSavedData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) {
+      return initialData;
+    }
+
+    const parsed = JSON.parse(saved);
+
+    return {
+      ...initialData,
+      ...parsed,
+      subjects: Array.isArray(parsed.subjects)
+        ? parsed.subjects
+        : [],
+    };
+  } catch (error) {
+    console.error("Failed to load onboarding data:", error);
+    return initialData;
+  }
+}
+
 export function OnboardingProvider({ children }) {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(loadSavedData);
+
+  /*
+   * Save onboarding data whenever it changes.
+   */
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+    } catch (error) {
+      console.error(
+        "Failed to save onboarding data:",
+        error
+      );
+    }
+  }, [data]);
 
   function updateData(updates) {
     setData((current) => ({
@@ -24,19 +72,34 @@ export function OnboardingProvider({ children }) {
 
   function toggleSubject(subject) {
     setData((current) => {
-      const exists = current.subjects.includes(subject);
+      const currentSubjects = Array.isArray(current.subjects)
+        ? current.subjects
+        : [];
+
+      const exists = currentSubjects.includes(subject);
 
       return {
         ...current,
         subjects: exists
-          ? current.subjects.filter((item) => item !== subject)
-          : [...current.subjects, subject],
+          ? currentSubjects.filter(
+              (item) => item !== subject
+            )
+          : [...currentSubjects, subject],
       };
     });
   }
 
   function resetOnboarding() {
     setData(initialData);
+
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+      console.error(
+        "Failed to clear onboarding data:",
+        error
+      );
+    }
   }
 
   const value = useMemo(
@@ -66,4 +129,4 @@ export function useOnboarding() {
   }
 
   return context;
-                             }
+    }
