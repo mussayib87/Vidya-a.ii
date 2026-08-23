@@ -54,7 +54,7 @@ export default function SubjectLearning() {
     classLevel,
     board,
     subject: subjectName,
-    language,
+
   });
 
   /*
