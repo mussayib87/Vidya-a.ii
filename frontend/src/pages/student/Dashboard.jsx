@@ -175,7 +175,7 @@ export default function Dashboard() {
           )}
 
           <button
-            onClick={() => alert("AI Tutor will be connected next.")}
+            onClick={() => navigate("/learning")}
             style={{
               marginTop: 24,
               border: 0,
