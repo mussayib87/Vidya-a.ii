@@ -1,232 +1,141 @@
-import React from "react";
-import {
-  ArrowRight,
-  Check,
-  CheckCircle2,
-  Sparkles,
-} from "lucide-react";
+import React, { useState } from "react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 import { useOnboarding } from "../../context/OnboardingContext";
+import profileService from "../../services/profileService";
 
 function Complete() {
   const navigate = useNavigate();
   const { data } = useOnboarding();
 
-  function handleStartLearning() {
-    // Dashboard will be connected later.
-    // For now, go to the main home page.
-    navigate("/dashboard");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleFinish() {
+    if (loading) return;
+
+    setLoading(true);
+    setError("");
+
+    const payload = {
+      classLevel: data.classLevel,
+      board: data.board,
+      preferredLanguage: data.language,
+      subjects: Array.isArray(data.subjects)
+        ? data.subjects
+        : [],
+      learningGoal: data.learningGoal,
+      learningStyle: data.learningStyle,
+      learningPace: data.pace,
+    };
+
+    if (
+      !payload.classLevel ||
+      !payload.board ||
+      !payload.preferredLanguage ||
+      payload.subjects.length === 0 ||
+      !payload.learningGoal ||
+      !payload.learningStyle ||
+      !payload.learningPace
+    ) {
+      setError(
+        "Please complete all learning preferences before continuing."
+      );
+      setLoading(false);
+      return;
+    }
+
+    try {
+      await profileService.saveOnboarding(payload);
+
+      navigate("/dashboard");
+    } catch (err) {
+      setError(
+        err?.message ||
+          "We couldn't save your learning profile. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <main className="onboarding-page complete-page">
+    <main className="onboarding-page">
       <div className="onboarding-shell">
-
-        {/* Header */}
-        <header className="onboarding-header">
-          <div className="onboarding-logo">
-
-            <div className="onboarding-logo-icon">
-              <Sparkles size={20} />
+        <section className="onboarding-form-section">
+          <div className="onboarding-heading">
+            <div className="welcome-icon">
+              <CheckCircle2 size={30} />
             </div>
 
-            <span>
-              Vidya<span> AI</span>
-            </span>
-
-          </div>
-
-          <div className="onboarding-step">
-            <span>Step</span>
-            <strong>7</strong>
-            <span>of 7</span>
-          </div>
-        </header>
-
-        {/* Progress */}
-        <div className="onboarding-progress">
-          <div
-            className="onboarding-progress-fill"
-            style={{ width: "100%" }}
-          />
-        </div>
-
-        {/* Content */}
-        <section className="complete-content">
-
-          {/* Success icon */}
-          <div className="complete-icon-wrapper">
-            <div className="complete-icon">
-              <Check
-                size={42}
-                strokeWidth={3}
-              />
-            </div>
-          </div>
-
-          {/* Heading */}
-          <div className="complete-heading">
-
-            <div className="complete-badge">
-              <Sparkles size={14} />
-              Setup complete
-            </div>
-
-            <h1>
-              You're ready to
-              <span> start learning!</span>
-            </h1>
+            <h1>Your learning profile is ready</h1>
 
             <p>
-              Your Vidya AI learning profile has been prepared
-              according to your class, subjects and learning
-              preferences.
+              Vidya AI has everything it needs to
+              personalize your learning experience.
             </p>
-
           </div>
 
-          {/* Profile */}
-          <div className="complete-profile-card">
-
-            <div className="complete-profile-header">
-
-              <div>
-                <span>Your learning profile</span>
-
-                <strong>
-                  {data.classLevel || "Student"}
-                </strong>
-              </div>
-
-              <CheckCircle2 size={22} />
-
+          {error && (
+            <div
+              className="input-error"
+              role="alert"
+              style={{ marginBottom: 20 }}
+            >
+              {error}
             </div>
+          )}
 
-            <div className="complete-profile-grid">
+          <div className="selection-section">
+            <label>Your preferences</label>
 
-              <div>
-                <span>Language</span>
-
-                <strong>
-                  {data.language || "Not selected"}
-                </strong>
+            <div className="selection-grid">
+              <div className="selection-card selected">
+                {data.classLevel || "Class not selected"}
               </div>
 
-              <div>
-                <span>Subjects</span>
-
-                <strong>
-                  {Array.isArray(data.subjects)
-                    ? `${data.subjects.length} selected`
-                    : "0 selected"}
-                </strong>
+              <div className="selection-card selected">
+                {data.board || "Board not selected"}
               </div>
 
-              <div>
-                <span>Goal</span>
-
-                <strong>
-                  {data.learningGoal || "Not selected"}
-                </strong>
+              <div className="selection-card selected">
+                {data.language || "Language not selected"}
               </div>
 
-              <div>
-                <span>Pace</span>
-
-                <strong>
-                  {data.pace || "Not selected"}
-                </strong>
+              <div className="selection-card selected">
+                {data.subjects?.length || 0} subject(s)
               </div>
 
+              <div className="selection-card selected">
+                {data.learningGoal || "Learning goal not selected"}
+              </div>
+
+              <div className="selection-card selected">
+                {data.learningStyle || "Learning style not selected"}
+              </div>
+
+              <div className="selection-card selected">
+                {data.pace || "Learning pace not selected"}
+              </div>
             </div>
           </div>
 
-          {/* Features */}
-          <div className="complete-features">
+          <div className="onboarding-navigation">
+            <button
+              type="button"
+              className="onboarding-primary-button"
+              disabled={loading}
+              onClick={handleFinish}
+            >
+              {loading
+                ? "Saving..."
+                : "Start learning"}
 
-            <div className="complete-feature">
-
-              <div className="complete-feature-icon">
-                <Check size={16} />
-              </div>
-
-              <div>
-                <strong>
-                  Personalized lessons
-                </strong>
-
-                <span>
-                  Lessons adapted to your learning preferences
-                </span>
-              </div>
-
-            </div>
-
-            <div className="complete-feature">
-
-              <div className="complete-feature-icon">
-                <Check size={16} />
-              </div>
-
-              <div>
-                <strong>
-                  Learning in your language
-                </strong>
-
-                <span>
-                  Understand concepts in the language you prefer
-                </span>
-              </div>
-
-            </div>
-
-            <div className="complete-feature">
-
-              <div className="complete-feature-icon">
-                <Check size={16} />
-              </div>
-
-              <div>
-                <strong>
-                  AI-powered assistance
-                </strong>
-
-                <span>
-                  Ask questions and get explanations whenever
-                  you need them
-                </span>
-              </div>
-
-            </div>
-
+              {!loading && <ArrowRight size={18} />}
+            </button>
           </div>
-
-          {/* Start learning */}
-          <button
-            type="button"
-            className="complete-start-button"
-            onClick={handleStartLearning}
-          >
-            Start learning
-            <ArrowRight size={19} />
-          </button>
-
-          <p className="complete-note">
-            You can change your learning preferences anytime
-            from your profile.
-          </p>
-
         </section>
-
-        {/* Footer */}
-        <footer className="onboarding-footer">
-          <span>Vidya AI</span>
-          <span>•</span>
-          <span>
-            Your learning. Your language. Your pace.
-          </span>
-        </footer>
-
       </div>
     </main>
   );
