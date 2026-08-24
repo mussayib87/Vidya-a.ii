@@ -17,56 +17,46 @@ export async function getQuizzes(params = {}) {
     ? `?${query.toString()}`
     : "";
 
-  return api.get(
-    `/api/v1/quizzes${suffix}`
-  );
+  return api.get(`/quizzes${suffix}`);
 }
 
 export async function getQuiz(id) {
   return api.get(
-    `/api/v1/quizzes/${encodeURIComponent(id)}`
+    `/quizzes/${encodeURIComponent(id)}`
   );
 }
 
 export async function createQuiz(data) {
-  return api.post(
-    "/api/v1/quizzes",
-    data
-  );
+  return api.post("/quizzes", data);
 }
 
 export async function updateQuiz(id, data) {
   return api.put(
-    `/api/v1/quizzes/${encodeURIComponent(id)}`,
+    `/quizzes/${encodeURIComponent(id)}`,
     data
   );
 }
 
 export async function deleteQuiz(id) {
   return api.delete(
-    `/api/v1/quizzes/${encodeURIComponent(id)}`
+    `/quizzes/${encodeURIComponent(id)}`
   );
 }
 
-export async function submitQuizAttempt(
-  id,
-  data
-) {
+export async function submitQuizAttempt(id, data) {
   return api.post(
-    `/api/v1/quizzes/${encodeURIComponent(id)}/attempt`,
+    `/quizzes/${encodeURIComponent(id)}/attempt`,
     data
   );
 }
 
 export async function getMyAttempts() {
-  return api.get(
-    "/api/v1/quizzes/attempts/my"
-  );
+  return api.get("/quizzes/attempts/my");
 }
 
 export async function getQuizAttempts(id) {
   return api.get(
-    `/api/v1/quizzes/${encodeURIComponent(id)}/attempts`
+    `/quizzes/${encodeURIComponent(id)}/attempts`
   );
 }
 

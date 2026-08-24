@@ -3,6 +3,11 @@ import api, {
   clearToken,
 } from "../config/api";
 
+/**
+ * Extracts the JWT access token from whatever shape the backend response
+ * carries it in.  Supabase wraps it in `session.accessToken`; simpler
+ * backends may hoist it to the top level.
+ */
 function extractToken(response) {
   return (
     response?.data?.session?.accessToken ||
@@ -18,7 +23,7 @@ function extractToken(response) {
 }
 
 export async function signup(data) {
-  const response = await api.post("/api/v1/auth/signup", data);
+  const response = await api.post("/auth/signup", data);
   const token = extractToken(response);
 
   if (token) {
@@ -29,7 +34,7 @@ export async function signup(data) {
 }
 
 export async function login(data) {
-  const response = await api.post("/api/v1/auth/login", data);
+  const response = await api.post("/auth/login", data);
   const token = extractToken(response);
 
   if (token) {
@@ -41,21 +46,18 @@ export async function login(data) {
 
 export async function logout() {
   try {
-    return await api.post("/api/v1/auth/logout");
+    return await api.post("/auth/logout");
   } finally {
     clearToken();
   }
 }
 
 export async function getMe() {
-  return api.get("/api/v1/auth/me");
+  return api.get("/auth/me");
 }
 
 export async function refreshToken(data) {
-  const response = await api.post(
-    "/api/v1/auth/refresh",
-    data
-  );
+  const response = await api.post("/auth/refresh", data);
   const token = extractToken(response);
 
   if (token) {
@@ -66,17 +68,11 @@ export async function refreshToken(data) {
 }
 
 export async function forgotPassword(data) {
-  return api.post(
-    "/api/v1/auth/forgot-password",
-    data
-  );
+  return api.post("/auth/forgot-password", data);
 }
 
 export async function resetPassword(data) {
-  return api.post(
-    "/api/v1/auth/reset-password",
-    data
-  );
+  return api.post("/auth/reset-password", data);
 }
 
 const authService = {
