@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 import AuthLayout from "../../layouts/AuthLayout";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import authService from "../../services/authService";
 
 function Signup() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ function Signup() {
     setErrors((current) => ({
       ...current,
       [name]: "",
+      general: "",
     }));
   }
 
@@ -39,6 +41,8 @@ function Signup() {
 
     if (!form.name.trim()) {
       nextErrors.name = "Please enter your name.";
+    } else if (form.name.trim().length < 2) {
+      nextErrors.name = "Name must contain at least 2 characters.";
     }
 
     if (!form.email.trim()) {
@@ -49,12 +53,19 @@ function Signup() {
 
     if (!form.password) {
       nextErrors.password = "Password is required.";
-    } else if (form.password.length < 8) {
-      nextErrors.password = "Password must contain at least 8 characters.";
+    } else if (form.password.length < 6) {
+      nextErrors.password =
+        "Password must contain at least 6 characters.";
     }
 
-    if (form.password !== form.confirmPassword) {
-      nextErrors.confirmPassword = "Passwords do not match.";
+    if (!form.confirmPassword) {
+      nextErrors.confirmPassword =
+        "Please confirm your password.";
+    } else if (
+      form.password !== form.confirmPassword
+    ) {
+      nextErrors.confirmPassword =
+        "Passwords do not match.";
     }
 
     return nextErrors;
@@ -71,11 +82,26 @@ function Signup() {
     }
 
     setLoading(true);
+    setErrors({});
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await authService.signup({
+        email: form.email.trim(),
+        password: form.password,
+        fullName: form.name.trim(),
+        role: form.role,
+      });
+
       navigate("/onboarding/welcome");
-    }, 500);
+    } catch (error) {
+      setErrors({
+        general:
+          error?.message ||
+          "Unable to create your account. Please try again.",
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -84,6 +110,12 @@ function Signup() {
       subtitle="Start your personalized learning journey."
     >
       <form className="auth-form" onSubmit={handleSubmit}>
+        {errors.general && (
+          <div className="input-error" role="alert">
+            {errors.general}
+          </div>
+        )}
+
         <Input
           label="Full name"
           name="name"
@@ -114,7 +146,6 @@ function Signup() {
 
           <div className="role-options">
             <RoleOption
-              value="student"
               selected={form.role === "student"}
               title="Student"
               description="I want to learn"
@@ -127,7 +158,6 @@ function Signup() {
             />
 
             <RoleOption
-              value="teacher"
               selected={form.role === "teacher"}
               title="Teacher"
               description="I want to teach"
@@ -159,23 +189,35 @@ function Signup() {
           autoComplete="new-password"
         />
 
-        <Button type="submit" loading={loading} className="auth-submit">
+        <Button
+          type="submit"
+          loading={loading}
+          className="auth-submit"
+        >
           Create account
         </Button>
 
         <p className="auth-switch">
-          Already have an account? <Link to="/login">Sign in</Link>
+          Already have an account?{" "}
+          <Link to="/login">Sign in</Link>
         </p>
       </form>
     </AuthLayout>
   );
 }
 
-function RoleOption({ selected, title, description, onClick }) {
+function RoleOption({
+  selected,
+  title,
+  description,
+  onClick,
+}) {
   return (
     <button
       type="button"
-      className={`role-option ${selected ? "role-option-selected" : ""}`}
+      className={`role-option ${
+        selected ? "role-option-selected" : ""
+      }`}
       onClick={onClick}
     >
       <span className="role-radio">
@@ -203,17 +245,22 @@ function PasswordField({
   return (
     <div>
       <label htmlFor={name} className="form-label">
-        {label}<span className="required-mark">*</span>
+        {label}
+        <span className="required-mark">*</span>
       </label>
 
-      <div className={`password-input-wrapper ${error ? "has-error" : ""}`}>
+      <div
+        className={`password-input-wrapper ${
+          error ? "has-error" : ""
+        }`}
+      >
         <input
           id={name}
           name={name}
           type={visible ? "text" : "password"}
           value={value}
           onChange={onChange}
-          placeholder="At least 8 characters"
+          placeholder="At least 6 characters"
           className="form-input password-input"
           autoComplete={autoComplete}
         />
@@ -221,13 +268,23 @@ function PasswordField({
         <button
           type="button"
           className="password-toggle"
-          onClick={() => setVisible((current) => !current)}
+          onClick={() =>
+            setVisible((current) => !current)
+          }
         >
-          {visible ? <EyeOff size={18} /> : <Eye size={18} />}
+          {visible ? (
+            <EyeOff size={18} />
+          ) : (
+            <Eye size={18} />
+          )}
         </button>
       </div>
 
-      {error && <div className="input-error">{error}</div>}
+      {error && (
+        <div className="input-error">
+          {error}
+        </div>
+      )}
     </div>
   );
 }
