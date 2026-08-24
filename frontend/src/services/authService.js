@@ -4,7 +4,7 @@ import api, {
 } from "../config/api";
 
 export async function signup(data) {
-  const response = await api.post("/api/v1/auth/signup", data);
+  const response = await api.post("/auth/login", data){
 
   const token =
     response?.token ||
