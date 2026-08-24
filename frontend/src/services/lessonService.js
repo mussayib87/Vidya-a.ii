@@ -17,53 +17,48 @@ export async function getLessons(params = {}) {
     ? `?${query.toString()}`
     : "";
 
-  return api.get(
-    `/api/v1/lessons${suffix}`
-  );
+  return api.get(`/lessons${suffix}`);
 }
 
 export async function getLesson(id) {
   return api.get(
-    `/api/v1/lessons/${encodeURIComponent(id)}`
+    `/lessons/${encodeURIComponent(id)}`
   );
 }
 
 export async function createLesson(data) {
-  return api.post(
-    "/api/v1/lessons",
-    data
-  );
+  return api.post("/lessons", data);
 }
 
 export async function updateLesson(id, data) {
   return api.put(
-    `/api/v1/lessons/${encodeURIComponent(id)}`,
+    `/lessons/${encodeURIComponent(id)}`,
     data
   );
 }
 
 export async function deleteLesson(id) {
   return api.delete(
-    `/api/v1/lessons/${encodeURIComponent(id)}`
+    `/lessons/${encodeURIComponent(id)}`
   );
 }
 
 export async function publishLesson(id) {
   return api.post(
-    `/api/v1/lessons/${encodeURIComponent(id)}/publish`
+    `/lessons/${encodeURIComponent(id)}/publish`
   );
 }
 
 export async function updateProgress(id, data) {
   return api.post(
-    `/api/v1/lessons/${encodeURIComponent(id)}/progress`,
+    `/lessons/${encodeURIComponent(id)}/progress`,
     data
   );
 }
 
 export async function getProgress(id) {
   return api.get(
-    `/api/v1/lessons/${encodeURIComponent(id)}/progress`
+    `/lessons/${encodeURIComponent(id)}/progress`
   );
 }
 
