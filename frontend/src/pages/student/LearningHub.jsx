@@ -1,20 +1,73 @@
-import React from "react";
-import { ArrowLeft, ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Sparkles,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 import { useOnboarding } from "../../context/OnboardingContext";
+import lessonService from "../../services/lessonService";
 
 export default function LearningHub() {
   const navigate = useNavigate();
   const { data } = useOnboarding();
 
+  const [lessons, setLessons] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const subjects = Array.isArray(data?.subjects)
     ? data.subjects
     : [];
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadLessons() {
+      try {
+        const response =
+          await lessonService.getLessons();
+
+        const result =
+          response?.data ||
+          response?.lessons ||
+          response;
+
+        if (active && Array.isArray(result)) {
+          setLessons(result);
+        }
+      } catch (error) {
+        console.error(
+          "Failed to load lessons:",
+          error
+        );
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadLessons();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   function openSubject(subject) {
     navigate(
       `/learning/${encodeURIComponent(subject)}`
     );
+  }
+
+  function getSubjectLessonCount(subject) {
+    return lessons.filter(
+      (lesson) =>
+        lesson?.subject?.toLowerCase() ===
+        subject?.toLowerCase()
+    ).length;
   }
 
   return (
@@ -26,7 +79,6 @@ export default function LearningHub() {
         color: "#0f172a",
       }}
     >
-      {/* Header */}
       <header
         style={{
           background: "#fff",
@@ -62,7 +114,9 @@ export default function LearningHub() {
 
         <button
           type="button"
-          onClick={() => navigate("/dashboard")}
+          onClick={() =>
+            navigate("/dashboard")
+          }
           style={{
             border: "1px solid #cbd5e1",
             background: "#fff",
@@ -79,7 +133,6 @@ export default function LearningHub() {
         </button>
       </header>
 
-      {/* Content */}
       <section
         style={{
           maxWidth: 1050,
@@ -87,7 +140,6 @@ export default function LearningHub() {
           padding: "45px 20px",
         }}
       >
-        {/* Hero */}
         <div
           style={{
             background:
@@ -106,7 +158,9 @@ export default function LearningHub() {
             }}
           >
             <Sparkles size={25} />
-            <strong>VIDYA AI LEARNING HUB</strong>
+            <strong>
+              VIDYA AI LEARNING HUB
+            </strong>
           </div>
 
           <h1
@@ -127,21 +181,15 @@ export default function LearningHub() {
               maxWidth: 650,
             }}
           >
-            Choose one of your subjects and Vidya AI will
-            help you learn concepts, understand difficult
+            Choose one of your subjects and
+            Vidya AI will help you learn
+            concepts, understand difficult
             topics and practice questions.
           </p>
         </div>
 
-        {/* Subjects */}
         <div>
-          <h2
-            style={{
-              marginBottom: 8,
-            }}
-          >
-            Choose a Subject
-          </h2>
+          <h2>Choose a Subject</h2>
 
           <p
             style={{
@@ -150,7 +198,8 @@ export default function LearningHub() {
               color: "#64748b",
             }}
           >
-            Select a subject to begin your learning session.
+            Select a subject to begin your
+            learning session.
           </p>
 
           {subjects.length === 0 ? (
@@ -171,21 +220,26 @@ export default function LearningHub() {
                 }}
               />
 
-              <h3>No subjects selected</h3>
+              <h3>
+                No subjects selected
+              </h3>
 
               <p
                 style={{
                   color: "#64748b",
                 }}
               >
-                Please select at least one subject from
-                your onboarding profile.
+                Please select at least one
+                subject from your onboarding
+                profile.
               </p>
 
               <button
                 type="button"
                 onClick={() =>
-                  navigate("/onboarding/subjects")
+                  navigate(
+                    "/onboarding/subjects"
+                  )
                 }
                 style={{
                   border: 0,
@@ -208,78 +262,91 @@ export default function LearningHub() {
                 gap: 18,
               }}
             >
-              {subjects.map((subject) => (
-                <button
-                  key={subject}
-                  type="button"
-                  onClick={() => openSubject(subject)}
-                  style={{
-                    textAlign: "left",
-                    background: "#fff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: 18,
-                    padding: 22,
-                    cursor: "pointer",
-                    boxShadow:
-                      "0 8px 25px rgba(15,23,42,0.05)",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 14,
-                      background: "#eff6ff",
-                      color: "#2563eb",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginBottom: 18,
-                    }}
-                  >
-                    <BookOpen size={23} />
-                  </div>
+              {subjects.map((subject) => {
+                const count =
+                  getSubjectLessonCount(subject);
 
-                  <h3
+                return (
+                  <button
+                    key={subject}
+                    type="button"
+                    onClick={() =>
+                      openSubject(subject)
+                    }
                     style={{
-                      margin: "0 0 8px",
-                      fontSize: 19,
+                      textAlign: "left",
+                      background: "#fff",
+                      border:
+                        "1px solid #e2e8f0",
+                      borderRadius: 18,
+                      padding: 22,
+                      cursor: "pointer",
+                      boxShadow:
+                        "0 8px 25px rgba(15,23,42,0.05)",
                     }}
                   >
-                    {subject}
-                  </h3>
+                    <div
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: 14,
+                        background: "#eff6ff",
+                        color: "#2563eb",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 18,
+                      }}
+                    >
+                      <BookOpen size={23} />
+                    </div>
 
-                  <p
-                    style={{
-                      margin: "0 0 18px",
-                      color: "#64748b",
-                      fontSize: 14,
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    Learn concepts, ask questions and
-                    practice {subject}.
-                  </p>
+                    <h3
+                      style={{
+                        margin: "0 0 8px",
+                        fontSize: 19,
+                      }}
+                    >
+                      {subject}
+                    </h3>
 
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 7,
-                      color: "#2563eb",
-                      fontWeight: 700,
-                      fontSize: 14,
-                    }}
-                  >
-                    Start {subject}
-                    <ArrowRight size={16} />
-                  </span>
-                </button>
-              ))}
+                    <p
+                      style={{
+                        margin: "0 0 18px",
+                        color: "#64748b",
+                        fontSize: 14,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {loading
+                        ? "Loading lessons..."
+                        : `${count} lesson${
+                            count === 1
+                              ? ""
+                              : "s"
+                          } available`}
+                    </p>
+
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 7,
+                        color: "#2563eb",
+                        fontWeight: 700,
+                        fontSize: 14,
+                      }}
+                    >
+                      Start {subject}
+                      <ArrowRight size={16} />
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
       </section>
     </main>
   );
-          }
+    }
