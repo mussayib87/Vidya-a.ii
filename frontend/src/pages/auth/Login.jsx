@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 import AuthLayout from "../../layouts/AuthLayout";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import authService from "../../services/authService";
 
 function Login() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function Login() {
     setErrors((current) => ({
       ...current,
       [name]: "",
+      general: "",
     }));
   }
 
@@ -57,19 +59,25 @@ function Login() {
       return;
     }
 
-    /*
-      Frontend-only phase:
-      Authentication will be connected to the backend later.
-      We keep the navigation real without pretending that authentication
-      has already happened.
-    */
-
     setLoading(true);
+    setErrors({});
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await authService.login({
+        email: form.email.trim(),
+        password: form.password,
+      });
+
       navigate("/onboarding/welcome");
-    }, 500);
+    } catch (error) {
+      setErrors({
+        general:
+          error?.message ||
+          "Unable to sign in. Please check your email and password.",
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -78,6 +86,12 @@ function Login() {
       subtitle="Sign in to continue your learning journey."
     >
       <form className="auth-form" onSubmit={handleSubmit}>
+        {errors.general && (
+          <div className="input-error" role="alert">
+            {errors.general}
+          </div>
+        )}
+
         <Input
           label="Email address"
           name="email"
@@ -109,7 +123,11 @@ function Login() {
           />
         </div>
 
-        <Button type="submit" loading={loading} className="auth-submit">
+        <Button
+          type="submit"
+          loading={loading}
+          className="auth-submit"
+        >
           Sign in
         </Button>
 
@@ -127,7 +145,11 @@ function PasswordInput({ name, value, onChange, error }) {
 
   return (
     <>
-      <div className={`password-input-wrapper ${error ? "has-error" : ""}`}>
+      <div
+        className={`password-input-wrapper ${
+          error ? "has-error" : ""
+        }`}
+      >
         <input
           id={name}
           name={name}
@@ -149,7 +171,11 @@ function PasswordInput({ name, value, onChange, error }) {
         </button>
       </div>
 
-      {error && <div className="input-error">{error}</div>}
+      {error && (
+        <div className="input-error">
+          {error}
+        </div>
+      )}
     </>
   );
 }
