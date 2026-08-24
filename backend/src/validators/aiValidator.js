@@ -11,17 +11,24 @@ export const generateLessonAiSchema = z.object({
   pace: z.string().optional().default('medium'),
 });
 
-export const generateExplanationAiSchema = z.object({
-  topic: z.string().min(2, 'Topic is required'),
-  studentQuery: z.string().optional().default(''),
-  subject: z.string().optional().default('General Science'),
-  classLevel: z.union([z.string(), z.number()]).transform((val) => String(val)).optional().default('10'),
-  board: z.string().optional().default('Karnataka State Board'),
-  language: z.string().optional().default('English'),
-  learningGoal: z.string().optional().default('Concept clarity'),
-  learningStyle: z.string().optional().default('interactive'),
-  pace: z.string().optional().default('medium'),
-});
+export const generateExplanationAiSchema = z
+  .object({
+    topic: z.string().optional(),
+    question: z.string().optional(),
+    studentQuery: z.string().optional(),
+    subject: z.string().optional().default('General Science'),
+    classLevel: z.union([z.string(), z.number()]).transform((val) => String(val)).optional().default('10'),
+    board: z.string().optional().default('Karnataka State Board'),
+    language: z.string().optional().default('English'),
+    learningGoal: z.string().optional().default('Concept clarity'),
+    learningStyle: z.string().optional().default('interactive'),
+    pace: z.string().optional().default('medium'),
+  })
+  .transform((val) => ({
+    ...val,
+    topic: val.topic || val.question || val.studentQuery || 'General Concept',
+    studentQuery: val.studentQuery || val.question || val.topic || '',
+  }));
 
 export const generateQuizAiSchema = z.object({
   topic: z.string().min(2, 'Topic is required'),

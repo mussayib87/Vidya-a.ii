@@ -56,8 +56,9 @@ function AITutor() {
     try {
       const response =
         await aiService.generateExplanation({
-          question: trimmedQuestion,
-          subject: subject || undefined,
+          topic: trimmedQuestion,
+          studentQuery: trimmedQuestion,
+          subject: subject || "General",
         });
 
       const answer =

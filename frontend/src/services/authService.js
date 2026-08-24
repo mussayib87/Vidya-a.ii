@@ -3,14 +3,23 @@ import api, {
   clearToken,
 } from "../config/api";
 
+function extractToken(response) {
+  return (
+    response?.data?.session?.accessToken ||
+    response?.data?.session?.access_token ||
+    response?.data?.accessToken ||
+    response?.data?.token ||
+    response?.session?.accessToken ||
+    response?.session?.access_token ||
+    response?.accessToken ||
+    response?.token ||
+    null
+  );
+}
+
 export async function signup(data) {
   const response = await api.post("/api/v1/auth/signup", data);
-
-  const token =
-    response?.token ||
-    response?.accessToken ||
-    response?.data?.token ||
-    response?.data?.accessToken;
+  const token = extractToken(response);
 
   if (token) {
     setToken(token);
@@ -21,12 +30,7 @@ export async function signup(data) {
 
 export async function login(data) {
   const response = await api.post("/api/v1/auth/login", data);
-
-  const token =
-    response?.token ||
-    response?.accessToken ||
-    response?.data?.token ||
-    response?.data?.accessToken;
+  const token = extractToken(response);
 
   if (token) {
     setToken(token);
@@ -52,12 +56,7 @@ export async function refreshToken(data) {
     "/api/v1/auth/refresh",
     data
   );
-
-  const token =
-    response?.token ||
-    response?.accessToken ||
-    response?.data?.token ||
-    response?.data?.accessToken;
+  const token = extractToken(response);
 
   if (token) {
     setToken(token);

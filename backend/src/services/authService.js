@@ -61,7 +61,14 @@ export const authService = {
         role,
         onboarding_completed: false,
       },
-      session: authData.session || null,
+      session: authData.session
+        ? {
+            accessToken: authData.session.access_token,
+            refreshToken: authData.session.refresh_token,
+            expiresAt: authData.session.expires_at,
+            expiresIn: authData.session.expires_in,
+          }
+        : null,
     };
   },
 
@@ -74,8 +81,9 @@ export const authService = {
       password,
     });
 
-    if (authError || !authData.session) {
-      throw new ApiError('Invalid email or password', 401, ERROR_CODES.UNAUTHORIZED);
+    if (authError || !authData?.session) {
+      const message = authError?.message || 'Invalid email or password';
+      throw new ApiError(message, 401, ERROR_CODES.UNAUTHORIZED);
     }
 
     const { user, session } = authData;
@@ -117,9 +125,14 @@ export const authService = {
    */
   async logout(token) {
     if (token) {
-      const { error } = await supabaseAnon.auth.signOut();
-      if (error) {
-        console.warn('Sign out warning:', error.message);
+      try {
+        await supabaseAdmin.auth.admin.signOut(token);
+      } catch {
+        try {
+          await supabaseAnon.auth.signOut();
+        } catch (error) {
+          console.warn('Sign out warning:', error.message);
+        }
       }
     }
     return { loggedOut: true };

@@ -1,10 +1,12 @@
 // frontend/src/services/api.js
 
-const DEFAULT_API_URL = "http://localhost:5000/api/v1";
+const DEFAULT_API_URL = "http://localhost:5000";
 
-const API_BASE_URL = (
+const RAW_API_URL = (
   import.meta.env.VITE_API_URL || DEFAULT_API_URL
 ).replace(/\/+$/, "");
+
+const API_BASE_URL = RAW_API_URL.replace(/\/api\/v1$/, "");
 
 const TOKEN_KEY = "vidya_access_token";
 
@@ -12,7 +14,7 @@ const TOKEN_KEY = "vidya_access_token";
  * Get the configured backend API URL.
  */
 export function getApiBaseUrl() {
-  return API_BASE_URL;
+  return `${API_BASE_URL}/api/v1`;
 }
 
 /**
@@ -43,7 +45,7 @@ export function clearToken() {
  */
 function buildUrl(endpoint) {
   if (!endpoint) {
-    return API_BASE_URL;
+    return `${API_BASE_URL}/api/v1`;
   }
 
   // Allow absolute URLs when needed.
@@ -55,7 +57,11 @@ function buildUrl(endpoint) {
     ? endpoint
     : `/${endpoint}`;
 
-  return `${API_BASE_URL}${normalizedEndpoint}`;
+  if (normalizedEndpoint.startsWith("/api/v1")) {
+    return `${API_BASE_URL}${normalizedEndpoint}`;
+  }
+
+  return `${API_BASE_URL}/api/v1${normalizedEndpoint}`;
 }
 
 /**
