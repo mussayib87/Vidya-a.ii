@@ -24,11 +24,10 @@ app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, postman) or matching FRONTEND_URL
-      if (!origin || origin === env.FRONTEND_URL || env.isDevelopment) {
+      if (!origin || origin === env.FRONTEND_URL) {
         callback(null, true);
       } else {
-        callback(null, true); // Permissive in dev/staging
+        callback(new Error('Not allowed by CORS'));
       }
     },
     credentials: true,
