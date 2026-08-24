@@ -8,11 +8,14 @@ import {
   User,
 } from "lucide-react";
 
+import aiService from "../../services/aiService";
+
 function AITutor() {
   const navigate = useNavigate();
   const { subject } = useParams();
 
   const [question, setQuestion] = useState("");
+
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -24,8 +27,9 @@ function AITutor() {
   ]);
 
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState("");
 
-  function sendMessage(event) {
+  async function sendMessage(event) {
     event.preventDefault();
 
     const trimmedQuestion = question.trim();
@@ -47,24 +51,46 @@ function AITutor() {
 
     setQuestion("");
     setIsTyping(true);
+    setError("");
 
-    // Temporary frontend response.
-    // This will later be replaced with the real AI API.
-    setTimeout(() => {
+    try {
+      const response =
+        await aiService.generateExplanation({
+          question: trimmedQuestion,
+          subject: subject || undefined,
+        });
+
+      const answer =
+        response?.data?.explanation ||
+        response?.data?.answer ||
+        response?.explanation ||
+        response?.answer ||
+        response?.message ||
+        "I couldn't generate an explanation right now.";
+
       const aiMessage = {
         id: Date.now() + 1,
         role: "ai",
-        text:
-          "I'm ready to explain this topic step by step. The real Vidya AI response engine will be connected here through the backend.",
+        text: answer,
       };
 
       setMessages((previous) => [
         ...previous,
         aiMessage,
       ]);
+    } catch (err) {
+      console.error(
+        "AI Tutor request failed:",
+        err
+      );
 
+      setError(
+        err?.message ||
+          "Unable to connect to Vidya AI right now."
+      );
+    } finally {
       setIsTyping(false);
-    }, 800);
+    }
   }
 
   return (
@@ -111,8 +137,9 @@ function AITutor() {
           <h2>Ask Vidya AI</h2>
 
           <p>
-            Ask questions, get simple explanations,
-            and learn at your own pace.
+            Ask questions, get simple
+            explanations, and learn at your
+            own pace.
           </p>
         </div>
 
@@ -152,6 +179,15 @@ function AITutor() {
                   <span />
                   <span />
                 </div>
+              </div>
+            )}
+
+            {error && (
+              <div
+                className="input-error"
+                role="alert"
+              >
+                {error}
               </div>
             )}
           </div>
