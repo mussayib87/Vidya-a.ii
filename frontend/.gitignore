@@ -1,9 +1,0 @@
-node_modules
-dist
-dist-ssr
-.env
-.env.local
-.env.production
-.env.*.local
-*.local
-.DS_Store
